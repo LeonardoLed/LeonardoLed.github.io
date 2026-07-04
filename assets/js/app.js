@@ -1,57 +1,10 @@
-const publications = [
- {title:'ENcyclopedia of TRAnscription Factors in Bacteria and Archaea Genomes (ENTRAF) version 2.0',year:2025,type:'Journal Article',venue:'Database (Oxford)',role:'Co-author',featured:true,quartile:'Q1',area:'Biochemistry, Genetics and Molecular Biology',wos:1,scopus:0,authors:['Tenorio-Salgado, S.','Rodríguez Maya, C.','Galán-Vásquez, E.','Borges Farias, A.','Álvarez-López, D.','Villalpando-Aguilar, J. L.','Martin, A. J.','Ledesma-Domínguez, L.','Pérez-Rueda, E.'],tags:['Transcription Factors','Bacteria','Archaea','Bioinformatics'],links:{DOI:'https://doi.org/10.1093/database/baaf071'}},
- {title:'DeepReg: a deep learning hybrid model for predicting transcription factors in eukaryotic and prokaryotic genomes',year:2024,type:'Journal Article',venue:'Scientific Reports',role:'First Author, Corresponding Author',featured:true,quartile:'Q1',area:'Multidisciplinary',wos:9,scopus:10,authors:['Ledesma-Domínguez, L.','Carbajal-Degante, E.','Moreno-Hagelsieb, G.','Pérez-Rueda, E.'],tags:['Deep Learning','Transcription Factors','Protein Function','Bioinformatics'],links:{DOI:'https://doi.org/10.1038/s41598-024-59487-5',PubMed:'https://pubmed.ncbi.nlm.nih.gov/38644393/'}},
- {title:'CDBProm: the Comprehensive Directory of Bacterial Promoters',year:2024,type:'Journal Article',venue:'NAR Genomics and Bioinformatics',role:'Co-author',featured:false,quartile:'Q1',area:'Applied Mathematics, Computer Science Applications',wos:9,scopus:8,authors:['Sganzerla Martínez, G.','Pérez-Rueda, E.','Kumar, A.','Dutt, M.','Rodríguez Maya, C.','Ledesma-Domínguez, L.','Lenz Casa, P.','Kumar, A.','de Ávila e Silva, S.','Kelvin, D. J.'],tags:['Promoters','Bioinformatics','Genomics'],links:{DOI:'https://doi.org/10.1093/nargab/lqae018',PubMed:'https://pubmed.ncbi.nlm.nih.gov/38385146/'}},
- {title:'Prediction of DNA-binding transcription factors in Bacteria and Archaea genomes',year:2022,type:'Book Chapter',venue:'Methods in Molecular Biology',role:'First Author',featured:false,quartile:'Q4',area:'Molecular Biology',wos:0,scopus:6,authors:['Ledesma, L.','Hernández-Guerrero, R.','Pérez-Rueda, E.'],tags:['Transcription Factors','DNA-Binding','Bacteria','Archaea'],links:{DOI:'https://doi.org/10.1007/978-1-0716-2425-1_10'}},
- {title:'Hacia una nueva praxis de ciencia abierta dominada por datos masivos e inteligencia artificial generativa',year:2026,type:'Book Chapter',venue:'Inteligencia artificial: experiencias y reflexiones sobre la investigación científica',role:'Co-author',featured:false,quartile:'',area:'Open Science',wos:0,scopus:0,authors:['Carbajal-Degante, E.','Ledesma-Domínguez, L.'],tags:['Open Science','Generative AI','Data Science'],links:{DOI:'https://doi.org/10.56162/transdigitalbc12.11'}},
- {title:'A multiphase texture-based model of active contours assisted by a convolutional neural network for automatic CT and MRI heart ventricle segmentation',year:2021,type:'Journal Article',venue:'Computer Methods and Programs in Biomedicine',role:'Co-author',featured:false,quartile:'Q1',area:'Health Informatics',wos:'-',scopus:'-',authors:['Carbajal-Degante, E.','Avendaño, S.','Ledesma, L.','Olveres, J.','Vallejo, E.','Escalante-Ramírez, B.'],tags:['Medical Imaging','Deep Learning','Segmentation'],links:{DOI:'https://doi.org/10.1016/j.cmpb.2021.106373',PubMed:'https://pubmed.ncbi.nlm.nih.gov/34562717/'}},
- {title:'Active contours for multi-region segmentation with a convolutional neural network initialization',year:2020,type:'Conference Proceeding',venue:'Proceedings of SPIE',role:'Co-author',featured:false,quartile:'',area:'Computer Science Applications',wos:'-',scopus:'-',authors:['Carbajal-Degante, E.','Avendaño, S.','Ledesma, L.','Olveres, J.','Escalante-Ramírez, B.'],tags:['Computer Vision','CNN','Segmentation'],links:{DOI:'https://doi.org/10.1117/12.2556928'}},
- {title:'Hermite Convolutional Networks',year:2019,type:'Conference Proceeding',venue:'Lecture Notes in Computer Science (LNCS)',role:'First Author',featured:true,quartile:'Q2',area:'Theoretical Computer Science',wos:'-',scopus:'-',authors:['Ledesma, L.','Olveres, J.','Escalante-Ramírez, B.'],tags:['Deep Learning','Convolutional Networks','Theoretical CS'],links:{DOI:'https://doi.org/10.1007/978-3-030-33904-3_37'}},
- {title:'YAAM: Yeast Amino Acid Modifications Database',year:2018,type:'Journal Article',venue:'Database (Oxford)',role:'First Author',featured:true,quartile:'Q1',area:'Biochemistry, Genetics and Molecular Biology',wos:'-',scopus:'-',authors:['Ledesma, L.','Sandoval, E.','Cruz-Martínez, U.','Escalante, A. M.','Mejía, S.','Moreno-Álvarez, P.','Ávila, E.','García, E.','Coello, G.','Torres-Quiroz, F.'],tags:['Bioinformatics','Yeast','Amino Acid Modifications','Database'],links:{DOI:'https://doi.org/10.1093/database/bax099',PubMed:'https://pubmed.ncbi.nlm.nih.gov/29688347/'}}
-];
-const experience={
- professional:[
-  ['2024–2025','Project Coordinator','CPESGI, UNAM','Institutional AI · Software modernization · Higher Education'],
-  ['2016–2024','Head of Computing Area & Databases','DGEI, UNAM','Databases · Data mining · Institutional rankings'],
-  ['2023','Back-end Developer','la+independiente','Chatbot and consultation system'],
-  ['2014–2016','Systems Administrator','Institute of Cellular Physiology, UNAM','Mail services · LDAP · server monitoring · security'],
-  ['2012–2014','Programming and Information Security Assistant','UNICA, Faculty of Engineering, UNAM','OpenStack · servers · networks · security']
- ],
- research:[
-  ['2020–2025','Research Assistant','IIMAS, UNAM','Deep Learning · transcription factors · DNA-binding site prediction'],
-  ['2020–2023','Research Collaborator','Center for Geosciences, UNAM','Geothermal rock segmentation and microporosity detection'],
-  ['2017–2021','Research Collaborator','Spatial Genomics Laboratory, IFC, UNAM','TADs · chromatin accessibility · genomic automation'],
-  ['2018–2020','Research Assistant','Advanced Image Processing Laboratory, Faculty of Engineering, UNAM','CNNs · GPU environments · COVID-19 lesion segmentation'],
-  ['2014–2016','Research Assistant','Institute of Cellular Physiology, UNAM','Biological databases · PDB files · bioinformatics algorithms']
- ],
- academic:[
-  ['2025–Present','Professor Researcher A','Tecnológico de Monterrey, Campus Monterrey','Advanced AI · bioinformatics · interdisciplinary research'],
-  ['2025–Present','Program Director','Tecnológico de Monterrey, Campus Querétaro','Academic leadership · curriculum · student experience'],
-  ['2023–2025','Lecturer','Faculty of Engineering, UNAM','OOP · algorithms · data structures · formal languages'],
-  ['2020–2023','Assistant Professor','Faculty of Sciences, UNAM','Programming · calculus · algebra · Linux'],
-  ['2011–2025','Instructor','FI/IIMAS, UNAM','Programming · Python · MATLAB · Deep Learning · Machine Learning']
- ]
-};
-const events=[
- ['br','II Escola Latino-Americana de Bioinformática','Petrópolis, Brazil · 2024','Professor'],
- ['mx','2nd Workshop in Advanced Bioinformatics','Querétaro, Mexico · 2022','Virtual speaker'],
- ['fr','SPIE Photonics Europe Digital Forum','Strasbourg, France · 2020','Virtual speaker'],
- ['cu','24th Iberoamerican Congress on Pattern Recognition','Havana, Cuba · 2019','Speaker'],
- ['mx','First Summer School in Deep Learning','Institute of Mathematics, UNAM · 2019','Technical support and speaker'],
- ['il','3rd Winter School in CS & Engineering','Jerusalem, Israel · 2018','Scholarship'],
- ['mx','IIMAS-Mérida Winter School','Mérida, Mexico · 2018','Winter school']
-];
-const awards=[
- ['2024','Alfonso Caso Medal','Master of Science generation 2017–2019.'],
- ['2021','National Data Science Award','First place.'],
- ['2018','Winter School Scholarship','Selected for the CS and Engineering on Blockchains and Cryptocurrencies program.'],
- ['2013','Wooden Bridges XIII','Prediction of failure using infinitesimal element calculation.'],
- ['2013','Digital Design Contest','Second place, Faculty of Engineering.'],
- ['2011','Wooden Bridges XI','National competition winner with a load record of 15,246 kg.'],
- ['2010–2014','PAEA Scholarship','High Academic Requirements Program, UNAM.'],
- ['2012–2014','UNICA Scholarship','Faculty of Engineering computing unit scholarship.']
-];
-
+const DATA = window.CVLEO_DATA || {};
+const publications = DATA.publications || [];
+const experience = DATA.experience || { professional: [], research: [], academic: [] };
+const events = DATA.events || { stays: [], congresses: [] };
+const awards = DATA.awards || [];
+const testimonials = DATA.testimonials || [];
+if (!DATA.publications) console.warn('CVLEO_DATA.publications was not loaded. Check assets/data/publications.js path and GitHub upload.');
 const state={page:1,perPage:3,search:'',type:'all',year:'all',featured:'all'};
 const moreState={professional:false,research:false,academic:false,events:false,awards:false};
 let testimonialIndex=0;
@@ -78,7 +31,24 @@ function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(bt
 function initTabs(){document.querySelectorAll('.tabs').forEach(group=>{group.addEventListener('click',e=>{const btn=e.target.closest('.tab');if(!btn)return;const id=btn.dataset.tab;group.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const parent=group.parentElement;parent.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));const panel=parent.querySelector('#'+id);if(panel)panel.classList.add('active');});});}
 function initExperienceTabs(){document.querySelectorAll('.exp-tab').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.exp;document.querySelectorAll('.exp-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.experience-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`${key}-panel`).classList.add('active');});});}
 function initNav(){const links=[...document.querySelectorAll('.nav-link')];const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+entry.target.id));}})},{rootMargin:'-20% 0px -70% 0px'});sections.forEach(s=>obs.observe(s));const mobile=document.querySelector('.mobile-nav-toggle');if(mobile)mobile.onclick=()=>document.querySelector('.sidebar').classList.toggle('open');links.forEach(a=>a.onclick=()=>document.querySelector('.sidebar').classList.remove('open'));const collapse=document.querySelector('.sidebar-collapse');if(collapse){collapse.addEventListener('click',()=>{document.body.classList.toggle('sidebar-collapsed');collapse.textContent=document.body.classList.contains('sidebar-collapsed')?'›':'‹';});}}
-function initTestimonials(){const cards=[...document.querySelectorAll('.testimonial-card')];const dots=document.getElementById('testimonial-dots');const wrap=document.querySelector('.testimonial-carousel');if(!cards.length||!dots)return;function show(i){testimonialIndex=(i+cards.length)%cards.length;cards.forEach((c,idx)=>c.classList.toggle('active',idx===testimonialIndex));dots.querySelectorAll('button').forEach((d,idx)=>d.classList.toggle('active',idx===testimonialIndex));}cards.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Go to testimonial ${i+1}`);b.onclick=()=>show(i);dots.appendChild(b);});document.getElementById('testimonial-prev').onclick=()=>show(testimonialIndex-1);document.getElementById('testimonial-next').onclick=()=>show(testimonialIndex+1);show(0);let timer=setInterval(()=>show(testimonialIndex+1),10000);if(wrap){wrap.addEventListener('mouseenter',()=>clearInterval(timer));wrap.addEventListener('mouseleave',()=>{timer=setInterval(()=>show(testimonialIndex+1),10000);});}}
+function initTestimonials(){
+  const windowEl=document.querySelector('.testimonial-window');
+  const dots=document.getElementById('testimonial-dots');
+  const wrap=document.querySelector('.testimonial-carousel');
+  if(!windowEl||!dots||!Array.isArray(testimonials)||!testimonials.length)return;
+  windowEl.innerHTML=testimonials.map((t,i)=>`<article class="testimonial-card ${i===0?'active':''}">${t.photo?`<img class="testimonial-photo" src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}" loading="lazy" />`:'<div class="photo-placeholder">◌</div>'}<p>“${escapeHtml(t.text)}”</p><h3>${escapeHtml(t.name)}</h3>${t.role?`<small class="testimonial-role">${escapeHtml(t.role)}</small>`:""}${t.company?`<small class="testimonial-company">${escapeHtml(t.company)}</small>`:""}</article>`).join('');
+  dots.innerHTML='';
+  const cards=[...windowEl.querySelectorAll('.testimonial-card')];
+  function show(i){testimonialIndex=(i+cards.length)%cards.length;cards.forEach((c,idx)=>c.classList.toggle('active',idx===testimonialIndex));dots.querySelectorAll('button').forEach((d,idx)=>d.classList.toggle('active',idx===testimonialIndex));}
+  cards.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Go to testimonial ${i+1}`);b.onclick=()=>show(i);dots.appendChild(b);});
+  const prev=document.getElementById('testimonial-prev');
+  const next=document.getElementById('testimonial-next');
+  if(prev)prev.onclick=()=>show(testimonialIndex-1);
+  if(next)next.onclick=()=>show(testimonialIndex+1);
+  show(0);
+  let timer=setInterval(()=>show(testimonialIndex+1),10000);
+  if(wrap){wrap.addEventListener('mouseenter',()=>clearInterval(timer));wrap.addEventListener('mouseleave',()=>{timer=setInterval(()=>show(testimonialIndex+1),10000);});}
+}
 document.addEventListener('click',e=>{if(e.target.matches('[data-more]')){const extra=e.target.nextElementSibling;extra.classList.toggle('hidden');e.target.textContent=extra.classList.contains('hidden')?e.target.textContent.replace('⌃','⌄'):e.target.textContent.replace('⌄','⌃');}if(e.target.matches('[data-toggle="inventors"]'))document.getElementById('inventors').classList.toggle('hidden');});
 function initPublicationFilters(){initYearFilter();[['publication-search','input','search'],['publication-type','change','type'],['publication-year','change','year'],['publication-featured','change','featured']].forEach(([id,evt,key])=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,e=>{state[key]=e.target.value;state.page=1;renderPublications();});});const chart=document.getElementById('publication-chart');if(chart){chart.addEventListener('click',e=>{e.preventDefault();const year=e.target.closest('[data-chart-year]')?.dataset.chartYear;const type=e.target.closest('[data-chart-type]')?.dataset.chartType;if(!year&&!type)return;if(year){state.year=state.year===year?'all':year;const y=document.getElementById('publication-year');if(y)y.value=state.year;}if(type){state.type=state.type===type?'all':type;const t=document.getElementById('publication-type');if(t)t.value=state.type;}state.page=1;renderPublications();});}}
 initTabs();initExperienceTabs();initNav();initPublicationFilters();renderPublications();renderExperience();renderEvents();renderAwards();initShowMore();initTestimonials();

@@ -151,3 +151,6 @@ html{scroll-behavior:smooth;}
 img{max-width:100%;}
 .project-card img,.logo-card img,.avatar{loading:lazy;}
 @media (max-width:900px){.nav-ico{width:36px!important;height:36px!important;flex-basis:36px!important}.nav-ico .lucide{width:21px!important;height:21px!important}.highlight-svg{width:34px!important;height:34px!important}.protein-highlight-icon{width:36px;height:36px}}
+
+.testimonial-role{display:block;font-weight:600;color:#334155;margin-top:4px;}
+.testimonial-company{display:block;font-size:.9rem;color:#64748b;margin-top:2px;}

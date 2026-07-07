@@ -10,11 +10,11 @@ window.CVLEO_DATA.testimonials = [
     photo: ''
   },
   {
-    name: 'Rodrigo Alejandro Sánchez Morales',
-    role: 'Jefe de área, análisis de bases de datos de sistemas universitarios',
-    company: 'UNAM',
-    text: 'Posee un excelente dominio de las relaciones interpersonales, además de caracterizarse por su proactividad y sobresalir por sus dotes de comunicación.',
-    photo: ''
+    name: 'Diana Giselle Hidalgo López',
+    role: 'Líder Regional de Tecnologia',
+    company: 'Johnson & Johnson',
+    text: 'Leonardo es una persona destacable por su honestidad, compromiso y constante disposición para apoyar a quienes lo rodean. Su calidad humana, junto con un elevado sentido ético y de responsabilidad, se reflejan plenamente en su trayectoria profesional al igual que en el ámbito personal. Es, sin duda, un individuo íntegro, por completo confiable y digno de reconocimiento.',
+    photo: 'assets/img/testimonials/giss.jpg'
   },
   {
     name: 'Erik Yidell Carbajal Degante',

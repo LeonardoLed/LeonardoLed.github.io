@@ -16,7 +16,7 @@ window.CVLEO_DATA.testimonials = [
     company: 'CPESGI, UNAM',
     text: 'Leonardo es una persona excepcional, tanto en lo profesional como en lo personal. Su liderazgo se destaca por la claridad en la comunicación y la capacidad de motivar a los demás. Siempre está dispuesto a colaborar, escuchar y ofrecer su apoyo cuando alguien lo necesita. También mantiene un ambiente de trabajo positivo y respetuoso, promoviendo el trabajo en equipo y el crecimiento.',
     photo: 'assets/img/testimonials/andrea.jpg'
-  }
+  },
 
   {
     name: 'Yóas S. Ramírez Graullera',

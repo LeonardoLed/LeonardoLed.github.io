@@ -370,22 +370,77 @@ img{max-width:100%;}
         min-height:auto;
     }
 }
-/* Patch: keep the page itself centered/full-width in the available area, not the inner Academic Snapshot */
+
+/* Corrección: mantener las tarjetas centradas dentro del área de la página,
+   sin estirarlas a todo el ancho disponible. */
 .page{
-  width:calc(100% - var(--sidebar));
-  max-width:none;
-  margin-left:var(--sidebar);
-  margin-right:0;
+    max-width:none !important;
+    width:auto !important;
+}
+.section-card,
+.content-section{
+    max-width:1320px;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+.content-section{
+    margin-bottom:24px !important;
+}
+.hero{
+    margin-bottom:24px !important;
 }
 
-/* Patch: restore language flag backgrounds after the later .flag-svg rule resets background to white */
-.flag-svg.flag-mx{background:linear-gradient(90deg,#006847 0 33.33%,#fff 33.33% 66.66%,#ce1126 66.66%)!important;}
-.flag-svg.flag-gb{background:#012169!important;}
-.flag-svg.flag-gb:before{content:"";position:absolute;inset:0;background:linear-gradient(28deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(152deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(90deg,transparent 0 42%,#fff 42% 58%,transparent 58%),linear-gradient(0deg,transparent 0 38%,#fff 38% 62%,transparent 62%),linear-gradient(90deg,transparent 0 45%,#c8102e 45% 55%,transparent 55%),linear-gradient(0deg,transparent 0 43%,#c8102e 43% 57%,transparent 57%);}
-.flag-svg.flag-il{background:linear-gradient(#fff 0 18%,#0d5eaf 18% 30%,#fff 30% 70%,#0d5eaf 70% 82%,#fff 82%)!important;}
-.flag-svg.flag-il:before{content:"✡";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font-size:12px;color:#0d5eaf;}
-.flag-svg.flag-ru{background:linear-gradient(#fff 0 33.3%,#0039a6 33.3% 66.6%,#d52b1e 66.6%)!important;}
-
-@media (max-width:900px){
-  .page{width:auto;margin-left:0;}
+/* Quitar encabezado redundante del Home, conservando Academic Snapshot. */
+.hero .eyebrow,
+.hero h2{
+    display:none !important;
 }
+.hero-copy{
+    max-width:none !important;
+}
+.academic-snapshot{
+    max-width:none !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+}
+.hero-description{
+    max-width:980px !important;
+}
+
+/* Publicaciones: limpiar leyendas y centrar la gráfica dentro de su recuadro. */
+#publication-count{
+    display:none !important;
+}
+.chart-title .chart-subtitle{
+    display:none !important;
+}
+.chart-combo{
+    display:flex !important;
+    justify-content:center !important;
+    overflow-x:auto;
+}
+.chart-bars{
+    width:max-content !important;
+    justify-content:center !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+/* Banderas: asegurar que se dibujen correctamente en Languages & Skills. */
+.language-card .flag-svg{
+    display:inline-block !important;
+    width:38px !important;
+    height:27px !important;
+    min-width:38px !important;
+    border-radius:5px !important;
+    box-shadow:0 0 0 1px rgba(0,0,0,.12) !important;
+    position:relative !important;
+    overflow:hidden !important;
+    background:#fff;
+}
+.flag-mx{background:linear-gradient(90deg,#006847 0 33.33%,#fff 33.33% 66.66%,#ce1126 66.66%) !important;}
+.flag-gb{background:#012169 !important;}
+.flag-gb:before{content:"";position:absolute;inset:0;background:linear-gradient(28deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(152deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(90deg,transparent 0 42%,#fff 42% 58%,transparent 58%),linear-gradient(0deg,transparent 0 38%,#fff 38% 62%,transparent 62%),linear-gradient(90deg,transparent 0 45%,#c8102e 45% 55%,transparent 55%),linear-gradient(0deg,transparent 0 43%,#c8102e 43% 57%,transparent 57%);}
+.flag-il{background:linear-gradient(#fff 0 18%,#0d5eaf 18% 30%,#fff 30% 70%,#0d5eaf 70% 82%,#fff 82%) !important;}
+.flag-il:before{content:"✡";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font-size:13px;color:#0d5eaf;}
+.flag-ru{background:linear-gradient(#fff 0 33.3%,#0039a6 33.3% 66.6%,#d52b1e 66.6%) !important;}

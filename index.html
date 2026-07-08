@@ -73,15 +73,15 @@
         <small>Research Areas</small>
         <div class="chips"><span>Bioinformatics</span><span>Artificial Intelligence</span><span>Computational Biology</span><span>Deep Learning</span></div>
       </div>
+      <div class="hero-description">
+        <p>As a scientist, my research focuses on bioinformatics and artificial intelligence, with a particular emphasis on designing deep learning algorithms for prediction, classification, and algorithm enhancement in the fields of genetics and omics.</p>
+        <p>As an engineer, for 11 years I have been involved in the management of systems covering various areas of computing, including database management and data engineering.</p>
+        <p>Forevermore, I love teaching and passing on my knowledge at the academy.</p>
+      </div>
     </section>
 
-    <section class="dashboard-card bio-card">
-      <p>As a scientist, my research focuses on bioinformatics and artificial intelligence, with a particular emphasis on designing deep learning algorithms for prediction, classification, and algorithm enhancement in the fields of genetics and omics.</p>
-      <p>As an engineer, for 11 years I have been involved in the management of systems covering various areas of computing, including database management and data engineering.</p>
-      <p>Forevermore, I love teaching and passing on my knowledge at the academy.</p>
-    </section>
 
-    <div class="dashboard-grid top-grid">
+    <div class="dashboard-grid top-grid revised-top-grid">
       <section id="research" class="dashboard-card research-card">
         <div class="section-title compact-title"><h2>Research Highlights</h2><span></span></div>
         <div class="mini-research-grid">
@@ -92,8 +92,8 @@
         </div>
       </section>
 
-      <section id="publications" class="dashboard-card publications-dashboard">
-        <div class="section-title compact-title"><h2>Publications by Year and Type</h2><span></span></div>
+      <section id="publications" class="dashboard-card publications-dashboard publication-records-dashboard">
+        <div class="section-title compact-title"><h2>Publication Records</h2><span></span></div>
         <div class="filters dashboard-filters">
           <input id="publication-search" type="search" placeholder="Search publications..." />
           <select id="publication-year"><option value="all">All years</option></select>
@@ -101,21 +101,16 @@
           <select id="publication-featured"><option value="all">Featured + regular</option><option value="featured">Featured only</option><option value="regular">Regular only</option></select>
         </div>
         <p class="muted small-counter" id="publication-count">Published records only.</p>
-        <div id="publication-chart" class="pub-chart" aria-label="Publications by year"></div>
+        <div id="all-publication-list" class="publication-stack compact"></div>
+        <div class="pager" id="all-pager"></div>
       </section>
 
-      <section class="dashboard-card recent-publications-card">
-        <div class="section-title compact-title"><h2>Recent Publications</h2><span></span></div>
-        <div id="recent-publication-list" class="recent-publication-list"></div>
-        <a href="#all-publications" class="text-link dashboard-link">View all publications →</a>
+      <section id="portfolio" class="dashboard-card portfolio-dashboard compact-portfolio-dashboard">
+        <div class="section-title compact-title"><h2>Portfolio <span>(Featured Projects)</span></h2><span></span></div>
+        <div id="featured-project-list" class="project-grid dashboard-projects"></div>
+        <details class="previous-projects"><summary>Previous projects</summary><div id="previous-project-list" class="project-grid previous-grid"></div></details>
       </section>
     </div>
-
-    <section id="all-publications" class="dashboard-card full-publications-card">
-      <div class="section-title compact-title"><h2>Publication Records</h2><span></span></div>
-      <div id="all-publication-list" class="publication-stack compact"></div>
-      <div class="pager" id="all-pager"></div>
-    </section>
 
     <section id="experience" class="dashboard-card experience-dashboard">
       <div class="section-title compact-title"><h2>Experience</h2><span></span></div>
@@ -126,11 +121,12 @@
       </div>
     </section>
 
-    <div class="dashboard-grid mid-grid">
-      <section id="portfolio" class="dashboard-card portfolio-dashboard">
-        <div class="section-title compact-title"><h2>Portfolio <span>(Featured Projects)</span></h2><span></span></div>
-        <div id="featured-project-list" class="project-grid dashboard-projects"></div>
-        <details class="previous-projects"><summary>Previous projects</summary><div id="previous-project-list" class="project-grid previous-grid"></div></details>
+    <div class="dashboard-grid mid-grid revised-mid-grid">
+      <section id="international" class="dashboard-card stays-dashboard">
+        <div class="section-title compact-title"><h2>Research Stays & Congresses</h2><span></span></div>
+        <article class="stay-card"><span class="flag-svg flag-ca"></span><div><span class="date">2022</span><h3>Wilfrid Laurier University (WLU)</h3><p>Waterloo, Canada · Research stay with Dr. Gabriel Moreno-Hagelsieb</p></div></article>
+        <div id="event-list" class="event-list compact-events"></div>
+        <button class="link-button" data-show-more="events">View all stays & events →</button>
       </section>
 
       <section id="ip" class="dashboard-card ip-dashboard">
@@ -142,24 +138,19 @@
       </section>
     </div>
 
-    <div class="dashboard-grid bottom-grid">
-      <section id="international" class="dashboard-card stays-dashboard">
-        <div class="section-title compact-title"><h2>Research Stays & Congresses</h2><span></span></div>
-        <article class="stay-card"><span class="flag-svg flag-ca"></span><div><span class="date">2022</span><h3>Wilfrid Laurier University (WLU)</h3><p>Waterloo, Canada · Research stay with Dr. Gabriel Moreno-Hagelsieb</p></div></article>
-        <div id="event-list" class="event-list compact-events"></div>
-        <button class="link-button" data-show-more="events">View all stays & events →</button>
-      </section>
-
-      <section id="skills" class="dashboard-card skills-dashboard">
+    <div class="dashboard-grid bottom-grid revised-bottom-grid">
+      <section id="skills" class="dashboard-card skills-dashboard skills-wide">
         <div class="section-title compact-title"><h2>Skills & Languages</h2><span></span></div>
         <h3 class="mini-label">Languages</h3>
         <div class="language-grid dashboard-languages">
           <article class="language-card"><span class="flag-svg flag-mx"></span><strong>Spanish</strong><small>Native</small><span class="dots full"></span></article>
           <article class="language-card"><span class="flag-svg flag-us"></span><strong>English</strong><small>C1</small><span class="dots high"></span></article>
           <article class="language-card"><span class="flag-svg flag-br"></span><strong>Portuguese</strong><small>Basic</small><span class="dots low"></span></article>
+          <article class="language-card"><span class="flag-svg flag-il"></span><strong>Hebrew</strong><small>Upper-intermediate</small><span class="dots mid"></span></article>
+          <article class="language-card"><span class="flag-svg flag-ru"></span><strong>Russian</strong><small>Elementary</small><span class="dots low"></span></article>
         </div>
         <h3 class="mini-label">Technical Skills</h3>
-        <div class="chips skills-chip-cloud"><span>Python</span><span>R</span><span>MATLAB</span><span>C / C++</span><span>Java</span><span>Perl</span><span>Prolog</span><span>Lisp</span><span>Julia</span><span>PyTorch</span><span>TensorFlow</span><span>scikit-learn</span><span>FastAPI</span><span>SQL</span><span>Docker</span><span>Linux</span><span>Neo4j</span><span>Qdrant</span></div>
+        <div class="chips skills-chip-cloud"><span>Python</span><span>R</span><span>MATLAB</span><span>C / C++</span><span>Java</span><span>Perl</span><span>Prolog</span><span>Lisp</span><span>Julia</span><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>scikit-learn</span><span>XGBoost</span><span>FastAPI</span><span>Next.js</span><span>React</span><span>SQL</span><span>Git</span><span>Docker</span><span>Linux</span><span>AWS</span><span>Neo4j</span><span>Qdrant</span><span>Ollama</span></div>
       </section>
 
       <section id="testimonials" class="dashboard-card testimonials-section testimonials-dashboard">
@@ -172,8 +163,11 @@
 
     <section id="awards" class="dashboard-card awards-dashboard">
       <div class="section-title compact-title"><h2>Awards & Honors</h2><span></span></div>
-      <div class="awards-grid" id="award-list"></div>
-      <button class="link-button" data-show-more="awards">View all awards & honors →</button>
+      <div class="awards-carousel">
+        <button class="carousel-btn award-nav" id="award-prev" aria-label="Previous awards">‹</button>
+        <div class="awards-grid" id="award-list"></div>
+        <button class="carousel-btn award-nav" id="award-next" aria-label="Next awards">›</button>
+      </div>
     </section>
 
     <section id="contact" class="dashboard-card contact-card">

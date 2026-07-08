@@ -20,7 +20,7 @@ window.CVLEO_DATA.testimonials = [
 
   {
     name: 'Yóas S. Ramírez Graullera',
-    role: 'Rsponsable del Laboratorio de Investigación y Desarrollo de Aplicaciones Interactivas para la Neuro-Rehabilitación',
+    role: 'Responsable del Laboratorio de Investigación y Desarrollo de Aplicaciones Interactivas para la Neuro-Rehabilitación',
     company: 'Instituto de Fisologia Celular, UNAM',
     text: 'He convivido con él desde hace más de 13 años y puedo asegurar que es una de las personas más responsables, perseverantes y comprometidas que conozco. No omito resaltar que constantemente busca superarse en lo humano y lo académico.',
     photo: 'assets/img/testimonials/yoas.jpeg'

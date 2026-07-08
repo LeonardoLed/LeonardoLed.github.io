@@ -179,3 +179,109 @@ img{max-width:100%;}
 
 .testimonial-role{display:block;font-weight:600;color:#334155;margin-top:4px;}
 .testimonial-company{display:block;font-size:.9rem;color:#64748b;margin-top:2px;}
+
+
+/* Portfolio data-driven cards */
+.featured-project-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+.featured-project-card{
+  display:grid;
+  grid-template-columns:1fr!important;
+  padding:0!important;
+  overflow:hidden;
+}
+.featured-project-card img{
+  width:100%;
+  height:145px;
+  object-fit:cover;
+  background:#fff;
+}
+.featured-project-card>div{
+  padding:16px;
+}
+.project-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.featured-project-card h3{
+  margin:0 0 6px;
+  color:#0F2D52;
+  font-size:19px;
+}
+.featured-project-card p{
+  margin:0 0 11px;
+  color:#40546c;
+  font-size:14px;
+}
+.project-keywords{
+  margin:8px 0 12px;
+}
+.project-keywords span{
+  padding:5px 9px;
+  font-size:11px;
+}
+.project-btn{
+  margin-top:2px;
+}
+.construction-badge{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:5px 9px;
+  background:#fff4d6;
+  color:#9a6700;
+  font-size:11px;
+  font-weight:900;
+  border:1px solid #f3d27a;
+}
+.previous-project-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.previous-project-card{
+  display:grid;
+  grid-template-columns:132px 1fr!important;
+  min-height:118px;
+  padding:0!important;
+  overflow:hidden;
+}
+.previous-project-card img{
+  width:132px;
+  height:100%;
+  min-height:118px;
+  object-fit:cover;
+  background:#fff;
+}
+.previous-project-card>div{
+  padding:14px;
+}
+.previous-project-card h3{
+  margin:0 0 6px;
+  color:#0F2D52;
+  font-size:16px;
+  line-height:1.25;
+}
+.previous-project-card p{
+  margin:0 0 8px;
+  color:#40546c;
+  font-size:13px;
+}
+.previous-project-card .text-link{
+  font-size:12px;
+}
+@media (max-width:1200px){
+  .featured-project-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:760px){
+  .featured-project-grid,.previous-project-grid{grid-template-columns:1fr;}
+  .previous-project-card{grid-template-columns:1fr!important;}
+  .previous-project-card img{width:100%;height:135px;}
+}

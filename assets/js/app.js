@@ -4,6 +4,7 @@ const experience = DATA.experience || { professional: [], research: [], academic
 const events = DATA.events || { stays: [], congresses: [] };
 const awards = DATA.awards || [];
 const testimonials = DATA.testimonials || [];
+const projects = DATA.projects || { featured: [], previous: [] };
 if (!DATA.publications) console.warn('CVLEO_DATA.publications was not loaded. Check assets/data/publications.js path and GitHub upload.');
 const state={page:1,perPage:3,search:'',type:'all',year:'all',featured:'all'};
 const moreState={professional:false,research:false,academic:false,events:false,awards:false};
@@ -27,6 +28,22 @@ function renderExperience(){Object.entries(experience).forEach(([key,items])=>{c
 function flagClass(code){return `flag-svg flag-${code}`;}
 function renderEvents(){const el=document.getElementById('event-list');if(!el)return;el.innerHTML=events.map((e,i)=>`<article class="event-card hover-card ${i>3&&!moreState.events?'hidden-extra':''}"><span class="${flagClass(e[0])}"></span><h3>${e[1]}</h3><p>${e[2]}</p><div class="chips"><span>${e[3]}</span></div></article>`).join('');const btn=document.querySelector('[data-show-more="events"]');if(btn){btn.style.display=events.length>4?'inline-flex':'none';btn.textContent=moreState.events?'Show less':'See more...';}}
 function renderAwards(){const el=document.getElementById('award-list');if(!el)return;el.innerHTML=awards.map((a,i)=>`<article class="experience-card hover-card ${i>3&&!moreState.awards?'award-hidden':''}"><span class="date">${a[0]}</span><h3>${a[1]}</h3><p>${a[2]}</p></article>`).join('');const btn=document.querySelector('[data-show-more="awards"]');if(btn){btn.style.display=awards.length>4?'inline-flex':'none';btn.textContent=moreState.awards?'Show less':'See more...';}}
+
+function safeImageTag(src, alt, fallback=''){
+  const onError=fallback ? ` onerror="this.onerror=null;this.src='${escapeHtml(fallback)}';"` : '';
+  return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy"${onError}>`;
+}
+function renderProjects(){
+  const featuredEl=document.getElementById('featured-project-list');
+  const previousEl=document.getElementById('previous-project-list');
+  if(featuredEl){
+    featuredEl.innerHTML=(projects.featured||[]).map(p=>`<article class="project-card featured-project-card hover-card">${safeImageTag(p.image,p.title,p.fallbackImage||'')}<div><div class="project-topline"><span class="date">${escapeHtml(p.period||'Featured')}</span>${p.status?`<span class="construction-badge">${escapeHtml(p.status)}</span>`:''}</div><h3>${escapeHtml(p.title)}</h3>${p.subtitle?`<p>${escapeHtml(p.subtitle)}</p>`:''}<div class="chips project-keywords">${(p.keywords||[]).map(k=>`<span>${escapeHtml(k)}</span>`).join('')}</div>${p.url?`<a class="btn small project-btn" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">${escapeHtml(p.linkLabel||'Visit website')}</a>`:''}</div></article>`).join('');
+  }
+  if(previousEl){
+    previousEl.innerHTML=(projects.previous||[]).map(p=>`<article class="project-card previous-project-card hover-card">${safeImageTag(p.image,p.title,p.fallbackImage||'')}<div><h3>${escapeHtml(p.title)}</h3>${p.description?`<p>${escapeHtml(p.description)}</p>`:''}${p.url?`<a class="text-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Open project →</a>`:''}</div></article>`).join('');
+  }
+}
+
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}
 function initTabs(){document.querySelectorAll('.tabs').forEach(group=>{group.addEventListener('click',e=>{const btn=e.target.closest('.tab');if(!btn)return;const id=btn.dataset.tab;group.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const parent=group.parentElement;parent.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));const panel=parent.querySelector('#'+id);if(panel)panel.classList.add('active');});});}
 function initExperienceTabs(){document.querySelectorAll('.exp-tab').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.exp;document.querySelectorAll('.exp-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.experience-panel').forEach(p=>p.classList.remove('active'));document.getElementById(`${key}-panel`).classList.add('active');});});}
@@ -51,4 +68,4 @@ function initTestimonials(){
 }
 document.addEventListener('click',e=>{if(e.target.matches('[data-more]')){const extra=e.target.nextElementSibling;extra.classList.toggle('hidden');e.target.textContent=extra.classList.contains('hidden')?e.target.textContent.replace('⌃','⌄'):e.target.textContent.replace('⌄','⌃');}if(e.target.matches('[data-toggle="inventors"]'))document.getElementById('inventors').classList.toggle('hidden');});
 function initPublicationFilters(){initYearFilter();[['publication-search','input','search'],['publication-type','change','type'],['publication-year','change','year'],['publication-featured','change','featured']].forEach(([id,evt,key])=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,e=>{state[key]=e.target.value;state.page=1;renderPublications();});});const chart=document.getElementById('publication-chart');if(chart){chart.addEventListener('click',e=>{e.preventDefault();const year=e.target.closest('[data-chart-year]')?.dataset.chartYear;const type=e.target.closest('[data-chart-type]')?.dataset.chartType;if(!year&&!type)return;if(year){state.year=state.year===year?'all':year;const y=document.getElementById('publication-year');if(y)y.value=state.year;}if(type){state.type=state.type===type?'all':type;const t=document.getElementById('publication-type');if(t)t.value=state.type;}state.page=1;renderPublications();});}}
-initTabs();initExperienceTabs();initNav();initPublicationFilters();renderPublications();renderExperience();renderEvents();renderAwards();initShowMore();initTestimonials();
+initTabs();initExperienceTabs();initNav();initPublicationFilters();renderPublications();renderProjects();renderExperience();renderEvents();renderAwards();initShowMore();initTestimonials();

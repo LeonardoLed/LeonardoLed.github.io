@@ -14,10 +14,10 @@ window.CVLEO_DATA.projects = {
       title: 'ENTRAF 2.0',
       subtitle: 'Encyclopedia of transcription factors in bacteria and archaea genomes.',
       period: '2025–Present',
-      image: 'assets/img/portfolio/portfolio-1.jpg',
-      url: 'https://doi.org/10.1093/database/baaf071',
-      linkLabel: 'Open publication',
-      keywords: ['Transcription Factors', 'Bacteria', 'Archaea', 'Pfam']
+      image: 'assets/img/portfolio/entraf.png',
+      url: 'https://entraf.iimas.unam.mx/',
+      linkLabel: 'Open project',
+      keywords: ['Transcription Factors', 'Bacteria', 'Archaea', 'PFAM']
     },
     {
       title: 'CDBProm',

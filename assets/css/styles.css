@@ -371,132 +371,65 @@ img{max-width:100%;}
     }
 }
 
-/* Corrección: mantener las tarjetas centradas dentro del área de la página,
-   sin estirarlas a todo el ancho disponible. */
+/* Layout correction requested: narrower centered sections with visible gray background */
 .page{
-    max-width:none !important;
-    width:auto !important;
+  width:calc(100% - var(--sidebar));
+  max-width:none!important;
+  margin-left:var(--sidebar)!important;
+  padding:32px 64px!important;
 }
-.section-card,
-.content-section{
-    max-width:1320px;
-    margin-left:auto !important;
-    margin-right:auto !important;
+.section-card,.content-section{
+  width:min(1120px,100%)!important;
+  max-width:1120px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
 }
-.content-section{
-    margin-bottom:24px !important;
+.hero-copy,.hero-description,.academic-snapshot{
+  max-width:920px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
 }
-.hero{
-    margin-bottom:24px !important;
-}
-
-/* Quitar encabezado redundante del Home, conservando Academic Snapshot. */
-.hero .eyebrow,
 .hero h2{
-    display:none !important;
-}
-.hero-copy{
-    max-width:none !important;
+  max-width:920px!important;
 }
 .academic-snapshot{
-    max-width:none !important;
-    margin-left:0 !important;
-    margin-right:0 !important;
+  width:100%!important;
 }
-.hero-description{
-    max-width:980px !important;
+.pub-chart{
+  width:100%!important;
 }
-
-/* Publicaciones: limpiar leyendas y centrar la gráfica dentro de su recuadro. */
+.chart-combo{
+  display:flex!important;
+  justify-content:center!important;
+  overflow-x:auto!important;
+}
+.chart-bars{
+  width:max-content!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  justify-content:center!important;
+}
 #publication-count{
-    display:none !important;
+  display:none!important;
 }
-.chart-title .chart-subtitle{
-    display:none !important;
-}
-.chart-combo{
-    display:flex !important;
-    justify-content:center !important;
-    overflow-x:auto;
-}
-.chart-bars{
-    width:max-content !important;
-    justify-content:center !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-}
-
-/* Banderas: asegurar que se dibujen correctamente en Languages & Skills. */
-.language-card .flag-svg{
-    display:inline-block !important;
-    width:38px !important;
-    height:27px !important;
-    min-width:38px !important;
-    border-radius:5px !important;
-    box-shadow:0 0 0 1px rgba(0,0,0,.12) !important;
-    position:relative !important;
-    overflow:hidden !important;
-    background:#fff;
-}
-.flag-mx{background:linear-gradient(90deg,#006847 0 33.33%,#fff 33.33% 66.66%,#ce1126 66.66%) !important;}
-.flag-gb{background:#012169 !important;}
-.flag-gb:before{content:"";position:absolute;inset:0;background:linear-gradient(28deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(152deg,transparent 0 42%,#fff 42% 47%,#c8102e 47% 53%,#fff 53% 58%,transparent 58%),linear-gradient(90deg,transparent 0 42%,#fff 42% 58%,transparent 58%),linear-gradient(0deg,transparent 0 38%,#fff 38% 62%,transparent 62%),linear-gradient(90deg,transparent 0 45%,#c8102e 45% 55%,transparent 55%),linear-gradient(0deg,transparent 0 43%,#c8102e 43% 57%,transparent 57%);}
-.flag-il{background:linear-gradient(#fff 0 18%,#0d5eaf 18% 30%,#fff 30% 70%,#0d5eaf 70% 82%,#fff 82%) !important;}
-.flag-il:before{content:"✡";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font-size:13px;color:#0d5eaf;}
-.flag-ru{background:linear-gradient(#fff 0 33.3%,#0039a6 33.3% 66.6%,#d52b1e 66.6%) !important;}
-
-/* Ajuste solicitado: recuadros más angostos y centrados, dejando más fondo gris lateral. */
-.section-card,
-.content-section{
-    width:min(100%,1120px) !important;
-    max-width:1120px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-}
-
-/* Mantener el snapshot centrado dentro del recuadro sin estirarlo a todo el ancho. */
-.academic-snapshot{
-    width:min(100%,820px) !important;
-    max-width:820px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-}
-.hero-description{
-    width:min(100%,820px) !important;
-    max-width:820px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-}
-
-/* Centrar realmente la gráfica dentro del subcuadro. */
-#publication-chart{
-    width:100% !important;
-}
-.chart-combo{
-    width:100% !important;
-    display:block !important;
-    overflow-x:auto !important;
-}
-.chart-bars{
-    width:100% !important;
-    max-width:760px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    justify-content:center !important;
-}
-
-/* Por seguridad: las publicaciones no indexadas no muestran métricas WoS/Scopus. */
 .publication-card.non-indexed .citation-box{
-    display:none !important;
+  display:none!important;
 }
-.publication-card.non-indexed .pub-side{
-    align-content:start !important;
+.publication-card.non-indexed .pub-side-simple{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
 }
-
+@media (min-width:1500px){
+  .page{padding-left:96px!important;padding-right:96px!important;}
+}
 @media (max-width:1200px){
-    .section-card,
-    .content-section{
-        width:calc(100% - 32px) !important;
-        max-width:1120px !important;
-    }
+  .page{padding-left:36px!important;padding-right:36px!important;}
+  .section-card,.content-section{width:100%!important;}
+}
+@media (max-width:900px){
+  .page{width:100%!important;margin-left:0!important;padding:18px!important;}
+  .section-card,.content-section{max-width:100%!important;}
+  .hero-copy,.hero-description,.academic-snapshot{max-width:100%!important;}
 }

@@ -38,8 +38,8 @@ window.CVLEO_DATA.experience = {
       ['2021-2026','Data Scientist & DBA leader','CPESGI, UNAM', 'Higher Education Systems · Databases','unam'],
     ['2024–2025','Project Management Coordinator','CPESGI, UNAM','Institutional AI & Systems Transformation · Software Optimization · Web Services', 'unam'],
     ['2016–2024','Head of Computing Area & Databases','DGEI, UNAM','Databases · Data mining · Systems Interoperability','unam'],
-    ['2014–2016','Systems Administrator','Institute of Cellular Physiology, UNAM','Mail services · LDAP · server monitoring · security','ifc'],
-    ['2012–2014','Programming and Information Security Assistant','UNICA, Faculty of Engineering, UNAM','OpenStack · servers · networks · security','fi']
+    ['2014–2016','Systems Administrator','Institute of Cellular Physiology, UNAM','Mail services · LDAP · SysAdmin · Security','ifc'],
+    ['2012–2014','Programming and Information Security Assistant','UNICA, Faculty of Engineering, UNAM','OpenStack · Servers · Data Networks · Security','fi']
   ],
   research: [
     ['2020–2025','Research Assistant','IIMAS, UNAM','Deep Learning · transcription factors · DNA-binding site prediction','iimas'],

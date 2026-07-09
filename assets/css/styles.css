@@ -436,3 +436,24 @@ img{max-width:100%;}
 .portfolio-card-wide .project-keywords{margin-top:2px}
 .portfolio-card-wide .text-link{margin-top:auto;font-weight:950}
 @media (max-width:1360px){.portfolio-card-wide{min-height:330px!important}.portfolio-card-wide .project-cover{height:120px}}
+
+/* Final polishing requested: smaller skills, oval full-width portfolio media, chart above publications */
+.skill-category h3{font-size:18px!important;line-height:1.15!important;margin-bottom:10px!important}
+.skill-category{padding:16px!important;min-height:auto!important}
+.skill-category .chips{gap:6px!important}
+.skill-category .chips span{font-size:11px!important;padding:6px 10px!important}
+.skill-language-row .language-card{padding:10px 12px!important}
+.skill-language-row .language-card strong{font-size:12px!important}.skill-language-row .language-card small{font-size:10px!important}
+
+.portfolio-two-columns .section-title.compact-title{display:flex!important;align-items:flex-end!important;gap:8px!important;margin-bottom:14px!important}
+.portfolio-two-columns .section-title.compact-title h2{display:flex!important;gap:7px!important;align-items:baseline!important;white-space:nowrap!important}
+.portfolio-two-columns .section-title.compact-title h2 span{display:inline!important;width:auto!important;height:auto!important;background:transparent!important;margin:0!important;color:#0a66ff!important;font-size:13px!important;letter-spacing:.04em!important;text-transform:uppercase!important}
+.portfolio-two-columns .section-title.compact-title>span{display:none!important}
+.portfolio-card-wide{border-radius:18px!important;overflow:hidden!important;padding:0!important}
+.portfolio-card-wide .project-cover{height:150px!important;width:100%!important;border-bottom:1px solid var(--dash-line)!important;background:#f7fbff!important;border-radius:18px 18px 0 0!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important}
+.portfolio-card-wide .project-cover img{width:100%!important;height:100%!important;object-fit:cover!important;padding:0!important;border-radius:18px 18px 0 0!important;background:#fff!important}
+.portfolio-card-wide .project-body{padding:18px!important}.portfolio-card-wide h3{font-size:17px!important;margin-top:0!important}
+
+.publication-layout-stacked{display:block!important}.publication-chart-top{position:static!important;border:1px solid var(--dash-line)!important;border-radius:16px!important;padding:18px!important;background:#f8fbff!important;margin-bottom:18px!important;max-width:900px!important;margin-left:auto!important;margin-right:auto!important}
+.publication-chart-top h3{text-align:center!important;margin:0 0 12px!important;color:#07376d!important;text-transform:uppercase!important;font-size:13px!important;letter-spacing:.04em!important}.publication-chart-top .pub-chart{background:transparent!important;border:0!important;padding:0!important}.publication-chart-top .chart-legend{justify-content:center!important}.publication-chart-top .chart-bars{min-height:210px!important;justify-content:center!important;gap:18px!important}.publication-list-panel{max-width:1040px!important;margin-left:auto!important;margin-right:auto!important}.publication-list-panel .dashboard-filters{justify-content:center!important}
+@media (max-width:900px){.publication-chart-top{max-width:none!important}.portfolio-card-wide .project-cover{height:132px!important}}

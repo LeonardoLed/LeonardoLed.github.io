@@ -13,7 +13,7 @@
     <button class="sidebar-collapse" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
     <div class="profile-card">
       <img class="avatar" src="assets/img/profile-img.jpg" alt="Leonardo Ledesma-Domínguez" />
-      <h1>Leo Ledesma</h1>
+      <h1>Leonardo Ledesma-Domínguez</h1>
       <p>Bioinformatics Scientist<br/>Engineer · Educator</p>
       <div class="sidebar-social compact-social">
         <a class="social-dot linkedin" href="https://www.linkedin.com/in/leonardo-ledesma-dom%C3%ADnguez-a70b11202" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
@@ -100,7 +100,11 @@
 
     <section id="publications" class="dashboard-card publications-dashboard publication-records-dashboard publications-full">
       <div class="section-title compact-title"><h2>Publication Records</h2><span></span></div>
-      <div class="publication-layout">
+      <div class="publication-layout publication-layout-stacked">
+        <div class="publication-chart-panel publication-chart-top">
+          <h3>Publications by year and type</h3>
+          <div id="publication-chart" class="pub-chart" aria-label="Publications by year and type"></div>
+        </div>
         <div class="publication-list-panel">
           <div class="filters dashboard-filters">
             <input id="publication-search" type="search" placeholder="Search publications..." />
@@ -112,10 +116,6 @@
           <div id="all-publication-list" class="publication-stack compact"></div>
           <div class="pager" id="all-pager"></div>
         </div>
-        <aside class="publication-chart-panel">
-          <h3>Publications by year and type</h3>
-          <div id="publication-chart" class="pub-chart" aria-label="Publications by year and type"></div>
-        </aside>
       </div>
     </section>
 

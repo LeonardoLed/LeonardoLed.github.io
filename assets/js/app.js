@@ -43,6 +43,27 @@ function orgCardData(parentKey, sampleOrg){
   const org=orgs[parentKey]||{};
   return {name:org.name||sampleOrg||parentKey, logo:org.logo||''};
 }
+function parseRoleYears(period){
+  const text = String(period || '');
+  const years = [...text.matchAll(/\d{4}|Present/g)].map(m => m[0]);
+  const start = Number(years.find(y => y !== 'Present')) || new Date().getFullYear();
+  const hasPresent = text.includes('Present');
+  const numericYears = years.filter(y => y !== 'Present').map(Number);
+  const end = hasPresent ? new Date().getFullYear() : Math.max(...numericYears, start);
+  return { start, end, hasPresent };
+}
+
+function experienceSummary(items, total){
+  const parsed = items.map(x => parseRoleYears(x[0]));
+  const start = Math.min(...parsed.map(p => p.start));
+  const hasPresent = parsed.some(p => p.hasPresent);
+  const end = Math.max(...parsed.map(p => p.end));
+  const endLabel = hasPresent ? 'Present' : String(end);
+  const duration = Math.max(1, end - start);
+  const durationLabel = hasPresent ? `${duration}+ years` : `${duration} years`;
+  return `${total} role${total === 1 ? '' : 's'} • ${start}–${endLabel} (${durationLabel})`;
+}
+
 function renderExperience(){
   Object.entries(experience).forEach(([key,items])=>{
     const el=document.getElementById(`${key}-list`);
@@ -62,7 +83,7 @@ function renderExperience(){
       const visibleItems=moreState[key]?g.items:g.items.slice(0,5);
       return {...g,items:visibleItems,total:g.items.length};
     });
-    el.innerHTML=visibleGroups.map(g=>`<article class="institution-experience-card"><div class="institution-head"><div class="institution-logo-large">${g.logo?`<img src="${escapeHtml(g.logo)}" alt="${escapeHtml(g.name)} logo" loading="lazy">`:orgFallback(g.name)}</div><div><h4>${escapeHtml(g.name)}</h4><p>${g.total} role${g.total===1?'':'s'}</p></div></div><div class="institution-roles">${g.items.map(({data:x})=>`<div class="institution-role-line"><span class="date">${escapeHtml(x[0])}</span><h5>${escapeHtml(x[1])}</h5><p><strong>${escapeHtml(x[2])}</strong></p><p>${escapeHtml(x[3])}</p></div>`).join('')}</div></article>`).join('');
+    el.innerHTML=visibleGroups.map(g=>`<article class="institution-experience-card"><div class="institution-head"><div class="institution-logo-large">${g.logo?`<img src="${escapeHtml(g.logo)}" alt="${escapeHtml(g.name)} logo" loading="lazy">`:orgFallback(g.name)}</div><div><h4>${escapeHtml(g.name)}</h4><p>${experienceSummary(g.items.map(({data}) => data), g.total)}</p></div></div><div class="institution-roles">${g.items.map(({data:x})=>`<div class="institution-role-line"><span class="date">${escapeHtml(x[0])}</span><h5>${escapeHtml(x[1])}</h5><p><strong>${escapeHtml(x[2])}</strong></p><p>${escapeHtml(x[3])}</p></div>`).join('')}</div></article>`).join('');
     const btn=document.querySelector(`[data-show-more="${key}"]`);
     if(btn){
       const totalRoles=items.length;

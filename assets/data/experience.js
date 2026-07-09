@@ -12,7 +12,7 @@ window.CVLEO_DATA.organizations = {
     logo: 'assets/img/companies/UNAM.png'
   },
   ifc: {
-    name: 'IFC, UNAM',
+    name: 'Instituto de Fisiología Celular, UNAM',
     logo: 'assets/img/companies/ifc.png'
   },
    fi: {

@@ -457,3 +457,11 @@ img{max-width:100%;}
 .publication-layout-stacked{display:block!important}.publication-chart-top{position:static!important;border:1px solid var(--dash-line)!important;border-radius:16px!important;padding:18px!important;background:#f8fbff!important;margin-bottom:18px!important;max-width:900px!important;margin-left:auto!important;margin-right:auto!important}
 .publication-chart-top h3{text-align:center!important;margin:0 0 12px!important;color:#07376d!important;text-transform:uppercase!important;font-size:13px!important;letter-spacing:.04em!important}.publication-chart-top .pub-chart{background:transparent!important;border:0!important;padding:0!important}.publication-chart-top .chart-legend{justify-content:center!important}.publication-chart-top .chart-bars{min-height:210px!important;justify-content:center!important;gap:18px!important}.publication-list-panel{max-width:1040px!important;margin-left:auto!important;margin-right:auto!important}.publication-list-panel .dashboard-filters{justify-content:center!important}
 @media (max-width:900px){.publication-chart-top{max-width:none!important}.portfolio-card-wide .project-cover{height:132px!important}}
+
+.award-institution{
+  display:block;
+  margin:6px 0 8px;
+  color:#0066cc;
+  font-weight:800;
+  font-size:12px;
+}

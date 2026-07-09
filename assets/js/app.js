@@ -102,7 +102,50 @@ function awardIcon(i){const icons=[
 `<svg viewBox="0 0 24 24"><path d="M4 18V8l4 4 4-7 4 7 4-4v10"/><path d="M3 21h18"/></svg>`,
 `<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M4 10h3M4 14h3M17 10h3M17 14h3M10 4v3M14 4v3M10 17v3M14 17v3"/></svg>`,
 `<svg viewBox="0 0 24 24"><path d="M4 18V8l4 4 4-7 4 7 4-4v10"/><path d="M3 21h18"/></svg>`];return icons[i%icons.length];}
-function renderAwards(){const el=document.getElementById('award-list');if(!el)return;const visibleCount=6;const start=Math.max(0,Math.min(awardOffset,Math.max(0,awards.length-visibleCount)));awardOffset=start;const visible=awards.slice(start,start+visibleCount);el.innerHTML=visible.map((a,i)=>`<article class="award-card"><div class="award-icon">${awardIcon(start+i)}</div><span class="date">${escapeHtml(a[0])}</span><h3>${escapeHtml(a[1])}</h3><p>${escapeHtml(a[2])}</p></article>`).join('');const prev=document.getElementById('award-prev');const next=document.getElementById('award-next');if(prev){prev.disabled=start===0;prev.onclick=()=>{awardOffset=Math.max(0,awardOffset-visibleCount);renderAwards();};}if(next){next.disabled=start+visibleCount>=awards.length;next.onclick=()=>{awardOffset=Math.min(Math.max(0,awards.length-visibleCount),awardOffset+visibleCount);renderAwards();};}}
+function renderAwards(){
+  const el=document.getElementById('award-list');
+  if(!el)return;
+
+  const visibleCount=6;
+  const start=Math.max(0,Math.min(awardOffset,Math.max(0,awards.length-visibleCount)));
+  awardOffset=start;
+
+  const visible=awards.slice(start,start+visibleCount);
+
+  el.innerHTML=visible.map((a,i)=>`
+    <article class="award-card">
+      <div class="award-icon">${awardIcon(start+i)}</div>
+
+      <span class="date">${escapeHtml(a[0])}</span>
+
+      <h3>${escapeHtml(a[1])}</h3>
+
+      ${a[3] ? `<h4 class="award-institution">${escapeHtml(a[3])}</h4>` : ''}
+
+      <p>${escapeHtml(a[2])}</p>
+    </article>
+  `).join('');
+
+  const prev=document.getElementById('award-prev');
+  const next=document.getElementById('award-next');
+
+  if(prev){
+    prev.disabled=start===0;
+    prev.onclick=()=>{
+      awardOffset=Math.max(0,awardOffset-visibleCount);
+      renderAwards();
+    };
+  }
+
+  if(next){
+    next.disabled=start+visibleCount>=awards.length;
+    next.onclick=()=>{
+      awardOffset=Math.min(Math.max(0,awards.length-visibleCount),awardOffset+visibleCount);
+      renderAwards();
+    };
+  }
+}
+
 function safeImageTag(src,alt,fallback=''){const onError=fallback?` onerror="this.onerror=null;this.src='${escapeHtml(fallback)}';"`:'';return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy"${onError}>`;}
 function renderProjects(){const featuredEl=document.getElementById('featured-project-list');const previousEl=document.getElementById('previous-project-list');if(featuredEl){featuredEl.innerHTML=(projects.featured||[]).map(p=>`<article class="project-card dash-project portfolio-card-wide"><div class="project-cover">${safeImageTag(p.image,p.title,p.fallbackImage||'')}</div><div class="project-body"><h3>${escapeHtml(p.title)}</h3>${p.subtitle?`<p>${escapeHtml(p.subtitle)}</p>`:''}${p.status?`<p class="project-status">${escapeHtml(p.status)}</p>`:''}<span class="date">${escapeHtml(p.period||'Featured')}</span><div class="chips project-keywords">${(p.keywords||[]).slice(0,4).map(k=>`<span>${escapeHtml(k)}</span>`).join('')}</div>${p.url?`<a class="text-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">${escapeHtml(p.linkLabel||'View project')} →</a>`:''}</div></article>`).join('');}if(previousEl){previousEl.innerHTML=(projects.previous||[]).map(p=>`<article class="project-card previous-project-card">${safeImageTag(p.image,p.title,p.fallbackImage||'')}<div><h3>${escapeHtml(p.title)}</h3>${p.description?`<p>${escapeHtml(p.description)}</p>`:''}${p.url?`<a class="text-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Open project →</a>`:''}</div></article>`).join('');}}
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}

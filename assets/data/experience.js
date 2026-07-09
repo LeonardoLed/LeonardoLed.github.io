@@ -47,7 +47,7 @@ window.CVLEO_DATA.experience = {
     ['2012–2014','Programming and Information Security Assistant','UNICA, Faculty of Engineering, UNAM','OpenStack · Servers · Data Networks · Security','fi']
   ],
   research: [
-    ['2020–2025','Research Assistant','IIMAS, UNAM','Deep Learning · transcription factors · DNA-binding site prediction','iimas'],
+    ['2020–2025','Research Assistant','IIMAS, UNAM','Deep Learning · Transcription factors · DNA-binding Site Prediction','iimas'],
     ['2020–2023','Research Collaborator','Center for Geosciences, UNAM','Geothermal rock segmentation and microporosity detection','unam'],
     ['2017–2021','Research Collaborator','Spatial Genomics Laboratory, IFC, UNAM','TADs · chromatin accessibility · genomic automation','ifc'],
     ['2018–2020','Research Assistant','Advanced Image Processing Laboratory, Faculty of Engineering, UNAM','CNNs · GPU environments · COVID-19 lesion segmentation','fi'],

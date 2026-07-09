@@ -5,6 +5,7 @@ const events = DATA.events || [];
 const awards = DATA.awards || [];
 const testimonials = DATA.testimonials || [];
 const projects = DATA.projects || { featured: [], previous: [] };
+const peerReviews = DATA.peerReviews || { published: [], active: [] };
 const state = { page: 1, perPage: 3, search: '', type: 'all', year: 'all', featured: 'all' };
 const moreState = { professional: false, academic: false, research: false, events: false, awards: false };
 let testimonialIndex = 0;
@@ -148,6 +149,31 @@ function renderAwards(){
 
 function safeImageTag(src,alt,fallback=''){const onError=fallback?` onerror="this.onerror=null;this.src='${escapeHtml(fallback)}';"`:'';return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy"${onError}>`;}
 function renderProjects(){const featuredEl=document.getElementById('featured-project-list');const previousEl=document.getElementById('previous-project-list');if(featuredEl){featuredEl.innerHTML=(projects.featured||[]).map(p=>`<article class="project-card dash-project portfolio-card-wide"><div class="project-cover">${safeImageTag(p.image,p.title,p.fallbackImage||'')}</div><div class="project-body"><h3>${escapeHtml(p.title)}</h3>${p.subtitle?`<p>${escapeHtml(p.subtitle)}</p>`:''}${p.status?`<p class="project-status">${escapeHtml(p.status)}</p>`:''}<span class="date">${escapeHtml(p.period||'Featured')}</span><div class="chips project-keywords">${(p.keywords||[]).slice(0,4).map(k=>`<span>${escapeHtml(k)}</span>`).join('')}</div>${p.url?`<a class="text-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">${escapeHtml(p.linkLabel||'View project')} →</a>`:''}</div></article>`).join('');}if(previousEl){previousEl.innerHTML=(projects.previous||[]).map(p=>`<article class="project-card previous-project-card">${safeImageTag(p.image,p.title,p.fallbackImage||'')}<div><h3>${escapeHtml(p.title)}</h3>${p.description?`<p>${escapeHtml(p.description)}</p>`:''}${p.url?`<a class="text-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Open project →</a>`:''}</div></article>`).join('');}}
+
+function peerReviewCard(item,type){
+  const isPublished=type==='published';
+  const links=[];
+  if(isPublished&&item.articleUrl)links.push(`<a href="${escapeHtml(item.articleUrl)}" target="_blank" rel="noopener">View article ↗</a>`);
+  if(isPublished&&item.certificateUrl&&item.certificateUrl!=='#')links.push(`<a href="${escapeHtml(item.certificateUrl)}" target="_blank" rel="noopener">Review recognition ↗</a>`);
+  return `<article class="peer-review-card ${isPublished?'published':'active'}">
+    <div class="peer-year"><strong>${escapeHtml(item.year)}</strong><span>${isPublished?escapeHtml(item.date||'Published'):'In review'}</span></div>
+    <div class="peer-logo">${item.logo?`<img src="${escapeHtml(item.logo)}" alt="${escapeHtml(item.publisher)} logo" loading="lazy">`:`<strong>${escapeHtml(item.publisher)}</strong>`}</div>
+    <div class="peer-info"><h4>${escapeHtml(item.journal)}</h4>${item.section?`<p>Section: ${escapeHtml(item.section)}</p>`:''}<small>Role: ${escapeHtml(item.role||'Peer Reviewer')}</small></div>
+    <div class="peer-title"><h4>${isPublished?escapeHtml(item.title):'Manuscript title confidential'}</h4>${!isPublished?`<p>${escapeHtml(item.note||'Under peer review process')}</p>`:''}</div>
+    <div class="peer-status"><strong>${escapeHtml(item.status)}</strong>${links.join('')}</div>
+  </article>`;
+}
+function renderPeerReviews(){
+  const publishedEl=document.getElementById('published-peer-review-list');
+  const activeEl=document.getElementById('active-peer-review-list');
+  if(publishedEl)publishedEl.innerHTML=(peerReviews.published||[]).map(p=>peerReviewCard(p,'published')).join('');
+  if(activeEl)activeEl.innerHTML=(peerReviews.active||[]).map(p=>peerReviewCard(p,'active')).join('');
+  const publishers=new Set([...(peerReviews.published||[]).map(p=>p.publisher),...(peerReviews.active||[]).map(p=>p.publisher)].filter(Boolean));
+  const pc=document.getElementById('peer-published-count');if(pc)pc.textContent=String((peerReviews.published||[]).length);
+  const ac=document.getElementById('peer-active-count');if(ac)ac.textContent=String((peerReviews.active||[]).length);
+  const pubc=document.getElementById('peer-publisher-count');if(pubc)pubc.textContent=String(publishers.size);
+}
+
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}
 function initNav(){const links=[...document.querySelectorAll('.nav-link')];const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+entry.target.id));}})},{rootMargin:'-20% 0px -70% 0px'});sections.forEach(s=>obs.observe(s));const mobile=document.querySelector('.mobile-nav-toggle');if(mobile)mobile.onclick=()=>document.querySelector('.sidebar')?.classList.toggle('open');links.forEach(a=>a.onclick=()=>document.querySelector('.sidebar')?.classList.remove('open'));const collapse=document.querySelector('.sidebar-collapse');if(collapse){collapse.addEventListener('click',()=>{document.body.classList.toggle('sidebar-collapsed');collapse.textContent=document.body.classList.contains('sidebar-collapsed')?'›':'‹';});}}
 function initTestimonials(){const windowEl=document.querySelector('.testimonial-window');const dots=document.getElementById('testimonial-dots');const wrap=document.querySelector('.testimonial-carousel');if(!windowEl||!dots||!Array.isArray(testimonials)||!testimonials.length)return;windowEl.innerHTML=testimonials.map((t,i)=>`<article class="testimonial-card ${i===0?'active':''}">${t.photo?`<img class="testimonial-photo" src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}" loading="lazy" />`:'<div class="quote-mark">“</div>'}<p>“${escapeHtml(t.text)}”</p><h3>${escapeHtml(t.name)}</h3>${t.role?`<small>${escapeHtml(t.role)}</small>`:''}${t.company?`<small>${escapeHtml(t.company)}</small>`:''}</article>`).join('');dots.innerHTML='';const cards=[...windowEl.querySelectorAll('.testimonial-card')];function show(i){testimonialIndex=(i+cards.length)%cards.length;cards.forEach((c,idx)=>c.classList.toggle('active',idx===testimonialIndex));dots.querySelectorAll('button').forEach((d,idx)=>d.classList.toggle('active',idx===testimonialIndex));}cards.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Go to testimonial ${i+1}`);b.onclick=()=>show(i);dots.appendChild(b);});document.getElementById('testimonial-prev')?.addEventListener('click',()=>show(testimonialIndex-1));document.getElementById('testimonial-next')?.addEventListener('click',()=>show(testimonialIndex+1));show(0);let timer=setInterval(()=>show(testimonialIndex+1),10000);if(wrap){wrap.addEventListener('mouseenter',()=>clearInterval(timer));wrap.addEventListener('mouseleave',()=>{timer=setInterval(()=>show(testimonialIndex+1),10000);});}}
@@ -160,5 +186,6 @@ renderExperience();
 renderEvents();
 renderAwards();
 renderProjects();
+renderPeerReviews();
 initShowMore();
 initTestimonials();

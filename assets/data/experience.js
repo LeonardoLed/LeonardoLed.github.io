@@ -5,7 +5,7 @@ window.CVLEO_DATA = window.CVLEO_DATA || {};
 window.CVLEO_DATA.organizations = {
   tec: {
     name: 'Tecnológico de Monterrey',
-    logo: 'assets/img/companies/Tec.png'
+    logo: 'assets/img/companies/tec.jpeg'
   },
   unam: {
     name: 'Universidad Nacional Autónoma de México',
@@ -18,6 +18,10 @@ window.CVLEO_DATA.organizations = {
    fi: {
     name: 'Facultad de Ingeniería, UNAM',
     logo: 'assets/img/companies/fi.png'
+  },
+   fc: {
+    name: 'Facultad de Ciencias, UNAM',
+    logo: 'assets/img/companies/fc.png'
   },
   iimas: {
     name: 'IIMAS, UNAM',
@@ -35,7 +39,8 @@ window.CVLEO_DATA.organizations = {
 
 window.CVLEO_DATA.experience = {
   professional: [
-      ['2021-2026','Data Scientist & DBA leader','CPESGI, UNAM', 'Higher Education Systems · Databases','unam'],
+      ['2025–Present','Program Director','Campus Querétaro, School of Engineering and Sciences','Academic Mentoring · Teaching · School Trajectory','tec'],
+    ['2021-2026','Data Scientist & DBA leader','CPESGI, UNAM', 'Higher Education Systems · Databases','unam'],
     ['2024–2025','Project Management Coordinator','CPESGI, UNAM','Institutional AI & Systems Transformation · Software Optimization · Web Services', 'unam'],
     ['2016–2024','Head of Computing Area & Databases','DGEI, UNAM','Databases · Data mining · Systems Interoperability','unam'],
     ['2014–2016','Systems Administrator','Institute of Cellular Physiology, UNAM','Mail services · LDAP · SysAdmin · Security','ifc'],
@@ -49,10 +54,10 @@ window.CVLEO_DATA.experience = {
     ['2014–2016','Research Assistant','Institute of Cellular Physiology, UNAM','Biological databases · PDB files · bioinformatics algorithms','ifc']
   ],
   academic: [
-    ['2025–Present','Professor Researcher A','Tecnológico de Monterrey, Campus Monterrey','Advanced AI · bioinformatics · interdisciplinary research','tec'],
-    ['2025–Present','Program Director','Tecnológico de Monterrey, Campus Querétaro','Academic leadership · curriculum · student experience','tec'],
-    ['2023–2025','Lecturer','Faculty of Engineering, UNAM','OOP · algorithms · data structures · formal languages','fi'],
-    ['2020–2023','Assistant Professor','Faculty of Sciences, UNAM','Programming · calculus · algebra · Linux','unam'],
-    ['2011–2025','Instructor','FI/IIMAS, UNAM','Programming · Python · MATLAB · Deep Learning · Machine Learning','iimas']
+    ['2025–Present','Professor Researcher A','Campus Monterrey, Research Group in Advanced Artificial Intelligence ','Quantum Neuronal Networks · Bioinformatics · Interdisciplinary research','tec'],
+    ['2023–2025','Professor','Faculty of Engineering, UNAM','OOP · algorithms · Data Structures · Formal Languages','fi'],
+    ['2011–2025','Instructor','FI/IIMAS, UNAM','Programming · Python · MATLAB · Deep Learning · Machine Learning','fi'],
+    ['2020–2023','Assistant Professor','Faculty of Sciences, UNAM','Programming  · Algorithms ','fc'],
+
   ]
 };

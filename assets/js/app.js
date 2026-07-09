@@ -26,16 +26,20 @@ function initYearFilter(){const yearSelect=document.getElementById('publication-
 function initPublicationFilters(){initYearFilter();[['publication-search','input','search'],['publication-type','change','type'],['publication-year','change','year'],['publication-featured','change','featured']].forEach(([id,evt,key])=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,e=>{state[key]=e.target.value;state.page=1;renderPublications();});});const chart=document.getElementById('publication-chart');if(chart){chart.addEventListener('click',e=>{const year=e.target.closest('[data-chart-year]')?.dataset.chartYear;const type=e.target.closest('[data-chart-type]')?.dataset.chartType;if(!year&&!type)return;if(year){state.year=state.year===year?'all':year;const y=document.getElementById('publication-year');if(y)y.value=state.year;}if(type){state.type=state.type===type?'all':type;const t=document.getElementById('publication-type');if(t)t.value=state.type;}state.page=1;renderPublications();});}}
 function orgFallback(name){return escapeHtml((name||'ORG').split(/\s|,/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase());}
 function parentOrgKey(raw){
-  const key=String(raw||'').toLowerCase();
-  if(['unam','cpesgi','dgei','fi','ifc','iimas'].includes(key)) return 'unam';
-  if(key.includes('unam')||key.includes('faculty')||key.includes('iimas')||key.includes('cpesgi')||key.includes('dgei')||key.includes('unica')||key.includes('cellular')) return 'unam';
+  const orgs=DATA.organizations||{};
+  const key=String(raw||'').trim().toLowerCase();
+  if(key && orgs[key]) return key;
   if(key.includes('tec')||key.includes('tecnológico')||key.includes('monterrey')) return 'tec';
-  return raw || 'other';
+  if(key.includes('iimas')) return 'iimas';
+  if(key.includes('cellular physiology')||key.includes('ifc')) return 'ifc';
+  if(key.includes('faculty of engineering')||key.includes('facultad de ingeniería')||key.includes('fi/')) return 'fi';
+  if(key.includes('cpesgi')) return 'cpesgi';
+  if(key.includes('dgei')) return 'dgei';
+  if(key.includes('unam')||key.includes('unica')||key.includes('faculty')||key.includes('facultad')) return 'unam';
+  return key || 'other';
 }
 function orgCardData(parentKey, sampleOrg){
   const orgs=DATA.organizations||{};
-  if(parentKey==='unam') return {name:'Universidad Nacional Autónoma de México', logo:(orgs.unam||{}).logo||'assets/img/companies/UNAM.png'};
-  if(parentKey==='tec') return {name:'Tecnológico de Monterrey', logo:(orgs.tec||{}).logo||'assets/img/companies/Tec.png'};
   const org=orgs[parentKey]||{};
   return {name:org.name||sampleOrg||parentKey, logo:org.logo||''};
 }

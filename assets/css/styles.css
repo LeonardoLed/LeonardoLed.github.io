@@ -406,3 +406,33 @@ img{max-width:100%;}
 @media (max-width:900px){.page.dashboard-page{margin-left:0;max-width:none}.publication-records-dashboard .publication-card{grid-template-columns:1fr}.publication-records-dashboard .publication-card .pub-side{border-left:0;border-top:1px solid var(--dash-line);padding:12px 0 0}.portfolio-two-columns .dashboard-projects,.skill-category-grid,.skill-language-row{grid-template-columns:1fr!important}.inventor-list ol{columns:1}.stat-strip{grid-template-columns:1fr 1fr}.awards-grid{grid-template-columns:repeat(2,1fr)!important}}
 /* Keep the main content about 10% narrower and centered within the available area */
 @media (min-width:901px){.page.dashboard-page{width:calc((100vw - var(--sidebar))*0.9);margin-left:calc(var(--sidebar) + ((100vw - var(--sidebar))*0.05));margin-right:auto;max-width:1580px}}
+
+
+/* Final polish: LinkedIn-style grouped experience, proper flags, and balanced skills/testimonials */
+.bottom-grid.revised-bottom-grid{grid-template-columns:minmax(0,1.55fr) minmax(320px,.9fr)!important;align-items:start!important}
+.skills-matrix-card{grid-column:auto!important}
+.testimonials-dashboard{align-self:start!important;height:auto!important}
+.skill-language-row{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.flag-mx{background:linear-gradient(90deg,#006847 0 33.33%,#fff 33.33% 66.66%,#ce1126 66.66%)!important}
+.flag-mx:before{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#8b5a2b 0 35%,#1c7c37 36% 65%,#b58b2a 66%);transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.flag-mx:after{content:"";position:absolute;left:50%;top:50%;width:14px;height:7px;border-radius:50%;border-bottom:2px solid #0f7f3c;transform:translate(-50%,-48%)}
+.certificate-ip svg{width:36px;height:36px;fill:none;stroke:#6532d9;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.certificate-ip{background:linear-gradient(135deg,#f2eaff,#ffffff)!important;border:1px solid #e2d4ff!important}
+.experience-list{display:grid;gap:18px}.institution-experience-card{background:#fff;border:1px solid var(--dash-line);border-radius:18px;padding:18px;box-shadow:0 10px 28px rgba(8,44,90,.045)}.institution-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--dash-line);margin-bottom:14px}.institution-logo-large{width:48px;height:48px;border:1px solid #d7e8fb;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#07376d;font-weight:900}.institution-logo-large img{width:100%;height:100%;object-fit:contain;padding:4px}.institution-head h4{margin:0;color:#07376d;font-size:15px}.institution-head p{margin:2px 0 0;color:#61738c;font-size:12px;font-weight:800}.institution-roles{position:relative;display:grid;gap:14px;padding-left:24px}.institution-roles:before{content:"";position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:#bcdcff}.institution-role-line{position:relative}.institution-role-line:before{content:"";position:absolute;left:-21px;top:8px;width:10px;height:10px;border-radius:50%;background:#0a66ff;box-shadow:0 0 0 4px #eef6ff}.institution-role-line .date{margin-bottom:6px}.institution-role-line h5{margin:0 0 4px;color:#07376d;font-size:14px;line-height:1.25}.institution-role-line p{margin:0 0 4px;color:#506781;font-size:12.5px;line-height:1.45}.institution-role-line strong{color:#294968}.experience-entry{display:none!important}
+@media (max-width:1360px){.bottom-grid.revised-bottom-grid{grid-template-columns:1fr!important}.skill-language-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:900px){.skill-language-row{grid-template-columns:1fr!important}.institution-head{align-items:flex-start}}
+
+
+/* Portfolio card refinement: full-width images and title below image */
+.portfolio-two-columns .section-title.compact-title h2{white-space:normal}
+.portfolio-two-columns .dashboard-projects{align-items:stretch}
+.portfolio-card-wide{display:flex!important;flex-direction:column!important;overflow:hidden;padding:0!important;min-height:360px!important}
+.portfolio-card-wide .project-cover{width:100%;height:132px;border-bottom:1px solid var(--dash-line);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.portfolio-card-wide .project-cover img{width:100%;height:100%;object-fit:contain;padding:14px;background:#fff}
+.portfolio-card-wide .project-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.portfolio-card-wide h3{order:0;margin:0 0 2px!important;font-size:18px!important;color:#07376d!important;text-align:left}
+.portfolio-card-wide p{margin:0;color:#4b6482;line-height:1.45}
+.portfolio-card-wide .project-status{color:#0759d6;font-weight:900;background:#eef6ff;border:1px solid #cfe4ff;border-radius:999px;padding:6px 10px;display:inline-flex;width:max-content;max-width:100%;font-size:12px}
+.portfolio-card-wide .date{width:max-content;margin-top:0}
+.portfolio-card-wide .project-keywords{margin-top:2px}
+.portfolio-card-wide .text-link{margin-top:auto;font-weight:950}
+@media (max-width:1360px){.portfolio-card-wide{min-height:330px!important}.portfolio-card-wide .project-cover{height:120px}}

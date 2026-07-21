@@ -567,3 +567,46 @@ img{max-width:100%;}
   .beyond-academia-copy p{font-size:14px;line-height:1.65}
   .beyond-academia-button{width:100%}
 }
+
+
+/* Beyond Academia refinements */
+.beyond-photo, .beyond-academia img{
+  width:min(400px,100%) !important;
+  max-width:400px !important;
+  height:auto !important;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  display:block;
+  margin:0 auto 1.5rem;
+  border-radius:18px;
+  box-shadow:0 12px 35px rgba(0,0,0,.15);
+}
+.youtube-btn, a.youtube-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  background:#FF0000 !important;
+  color:#fff !important;
+  padding:.9rem 1.5rem;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.25s;
+}
+.youtube-btn:hover,a.youtube-btn:hover{
+  background:#d60000 !important;
+  transform:translateY(-2px);
+}
+@media(min-width:900px){
+  .beyond-content,.beyond-wrapper{
+    display:grid;
+    grid-template-columns:400px 1fr;
+    gap:2.5rem;
+    align-items:center;
+  }
+}
+@media(max-width:899px){
+  .beyond-content,.beyond-wrapper{
+    display:block;
+  }
+}

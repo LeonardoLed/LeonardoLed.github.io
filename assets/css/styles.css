@@ -680,3 +680,65 @@ html,body{max-width:100%;overflow-x:hidden}
   .mobile-nav-toggle{right:12px!important;bottom:12px!important;width:48px!important;height:48px!important}
   .beyond-academia-media img{width:100%!important;max-width:320px!important;aspect-ratio:4/3!important}
 }
+
+/* Education & Theses */
+.education-dashboard{margin-bottom:20px;overflow:hidden}
+.education-intro{margin:-4px 0 26px;color:var(--muted)}
+.education-timeline{position:relative;display:grid;gap:20px}
+.education-timeline:before{content:"";position:absolute;left:23px;top:28px;bottom:28px;width:2px;background:linear-gradient(#bdd7f3,#e9f1f9)}
+.education-entry{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px}
+.education-marker{position:relative;z-index:1;width:48px;height:48px;border:1px solid #cfe0f2;border-radius:14px;background:#f7fbff;display:grid;place-items:center;color:#07376d;box-shadow:0 8px 18px rgba(8,44,90,.06)}
+.education-marker svg,.thesis-button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.education-content{min-width:0;border:1px solid var(--line);border-radius:17px;background:#fff;padding:22px 24px;box-shadow:0 10px 28px rgba(8,44,90,.055)}
+.education-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:10px}
+.education-heading>div{min-width:0}
+.education-level{display:inline-flex;align-items:center;border:1px solid #cfe1f5;background:#f0f7ff;color:#0758b8;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:900;letter-spacing:.05em;margin-bottom:7px}
+.education-content h3,.other-studies h3{margin:0;color:#07376d;font-size:22px;line-height:1.25}
+.education-content p{margin:4px 0;color:#50667f}
+.education-university{font-weight:800!important;color:#153b68!important}
+.education-period{flex:0 0 auto;display:inline-flex;background:#f6f9fc;border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#526b87;font-size:12px;font-weight:800;white-space:nowrap}
+.education-meta{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 14px;padding-top:14px;border-top:1px solid #edf2f7}
+.honor-label,.gpa-label{display:inline-flex;align-items:center;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:850}
+.honor-label{background:#f0f7ff;color:#0758b8;border:1px solid #cfe1f5}
+.gpa-label{background:#f7f9fc;color:#334e6d;border:1px solid #dce5ef}
+.education-area{display:flex;align-items:flex-start;gap:13px;margin:0 0 17px}
+.education-area>strong{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#60728a;padding-top:7px}
+.education-area .chips{margin:0}
+.thesis-button{display:inline-flex;align-items:center;gap:10px;border:1px solid #bcd6f0;background:#f7fbff;color:#0758b8;border-radius:12px;padding:10px 13px;font-weight:900;line-height:1.15;transition:.2s ease}
+.thesis-button:hover{background:#eaf5ff;text-decoration:none;transform:translateY(-1px)}
+.thesis-button svg{width:20px;height:20px;flex:0 0 auto}
+.thesis-button span{display:grid;gap:3px}
+.thesis-button small{font-size:10px;font-weight:700;color:#6c8098}
+.other-studies{margin:20px 0 0 66px;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+.other-studies summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;color:#07376d;font-weight:900}
+.other-studies summary::-webkit-details-marker{display:none}
+.other-studies summary:after{content:"+";font-size:22px;line-height:1;color:#0758b8}
+.other-studies[open] summary:after{content:"−"}
+.other-studies summary small{margin-left:auto;color:#71859c;font-weight:700}
+.other-studies article{padding:4px 20px 20px;border-top:1px solid #edf2f7}
+.other-studies article>div{padding-top:16px}
+.other-studies .education-period{margin-top:9px}
+@media (max-width:700px){
+  .education-timeline:before{left:18px}
+  .education-entry{grid-template-columns:38px minmax(0,1fr);gap:11px}
+  .education-marker{width:38px;height:38px;border-radius:11px}
+  .education-marker svg{width:20px;height:20px}
+  .education-content{padding:17px 16px}
+  .education-heading{display:block}
+  .education-period{margin-top:10px;white-space:normal}
+  .education-content h3,.other-studies h3{font-size:18px}
+  .education-meta{display:grid;grid-template-columns:1fr}
+  .honor-label,.gpa-label{width:100%;justify-content:flex-start}
+  .education-area{display:block}
+  .education-area>strong{display:block;margin-bottom:7px}
+  .thesis-button{width:100%;justify-content:center;text-align:left}
+  .other-studies{margin-left:49px}
+}
+@media (max-width:420px){
+  .education-dashboard{padding:18px!important}
+  .education-entry{grid-template-columns:1fr}
+  .education-timeline:before{display:none}
+  .education-marker{display:none}
+  .other-studies{margin-left:0}
+  .other-studies summary{padding:14px}
+}

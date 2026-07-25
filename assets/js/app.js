@@ -69,8 +69,13 @@ function renderExperience(){
   Object.entries(experience).forEach(([key,items])=>{
     const el=document.getElementById(`${key}-list`);
     if(!el)return;
+
+    // Show only the two most recent roles by default.
+    // The arrays in experience.js are already ordered from newest to oldest.
+    const displayedItems=moreState[key]?items:items.slice(0,2);
     const groups=[];
-    items.forEach((x,i)=>{
+
+    displayedItems.forEach((x,i)=>{
       const parent=parentOrgKey(x[4]||x[2]);
       let g=groups.find(v=>v.parent===parent);
       if(!g){
@@ -80,16 +85,13 @@ function renderExperience(){
       }
       g.items.push({data:x,index:i});
     });
-    const visibleGroups=groups.map(g=>{
-      const visibleItems=moreState[key]?g.items:g.items.slice(0,5);
-      return {...g,items:visibleItems,total:g.items.length};
-    });
-    el.innerHTML=visibleGroups.map(g=>`<article class="institution-experience-card"><div class="institution-head"><div class="institution-logo-large">${g.logo?`<img src="${escapeHtml(g.logo)}" alt="${escapeHtml(g.name)} logo" loading="lazy">`:orgFallback(g.name)}</div><div><h4>${escapeHtml(g.name)}</h4><p>${experienceSummary(g.items.map(({data}) => data), g.total)}</p></div></div><div class="institution-roles">${g.items.map(({data:x})=>`<div class="institution-role-line"><span class="date">${escapeHtml(x[0])}</span><h5>${escapeHtml(x[1])}</h5><p><strong>${escapeHtml(x[2])}</strong></p><p>${escapeHtml(x[3])}</p></div>`).join('')}</div></article>`).join('');
+
+    el.innerHTML=groups.map(g=>`<article class="institution-experience-card"><div class="institution-head"><div class="institution-logo-large">${g.logo?`<img src="${escapeHtml(g.logo)}" alt="${escapeHtml(g.name)} logo" loading="lazy">`:orgFallback(g.name)}</div><div><h4>${escapeHtml(g.name)}</h4><p>${experienceSummary(g.items.map(({data}) => data), g.items.length)}</p></div></div><div class="institution-roles">${g.items.map(({data:x})=>`<div class="institution-role-line"><span class="date">${escapeHtml(x[0])}</span><h5>${escapeHtml(x[1])}</h5><p><strong>${escapeHtml(x[2])}</strong></p><p>${escapeHtml(x[3])}</p></div>`).join('')}</div></article>`).join('');
+
     const btn=document.querySelector(`[data-show-more="${key}"]`);
     if(btn){
-      const totalRoles=items.length;
-      btn.style.display=totalRoles>5?'inline-flex':'none';
-      btn.textContent=moreState[key]?`Show less ${key} experience ↑`:`See all ${key} experience →`;
+      btn.style.display=items.length>2?'inline-flex':'none';
+      btn.textContent=moreState[key]?`Show less ${key} experience ↑`:`View more ${key} experience →`;
     }
   });
 }

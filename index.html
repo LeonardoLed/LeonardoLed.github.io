@@ -282,12 +282,28 @@
 
       <div id="courses-chart" class="courses-chart" aria-label="Course offerings and students served by year"></div>
 
+      <div class="courses-table-tools">
+        <label class="courses-search-label">
+          <span>Search</span>
+          <input id="courses-search" type="search" placeholder="Search courses..." autocomplete="off">
+        </label>
+        <label>
+          <span>Year</span>
+          <select id="courses-year-filter"><option value="all">All years</option></select>
+        </label>
+        <label>
+          <span>Program</span>
+          <select id="courses-program-filter"><option value="all">All programs</option></select>
+        </label>
+      </div>
+
       <div class="courses-table-wrap">
         <table class="courses-table">
-          <thead><tr><th>#</th><th>Year</th><th>Course</th><th>Program</th><th>Semester</th><th>Students</th></tr></thead>
+          <thead><tr><th>#</th><th><button type="button" class="courses-sort" data-course-sort="year">Year <span>⇅</span></button></th><th><button type="button" class="courses-sort" data-course-sort="course">Course <span>⇅</span></button></th><th><button type="button" class="courses-sort" data-course-sort="program">Program <span>⇅</span></button></th><th><button type="button" class="courses-sort" data-course-sort="semester">Semester <span>⇅</span></button></th><th><button type="button" class="courses-sort" data-course-sort="students">Students <span>⇅</span></button></th></tr></thead>
           <tbody id="courses-table-body"></tbody>
         </table>
       </div>
+      <p id="courses-table-status" class="courses-table-status" aria-live="polite"></p>
     </section>
 
     <div class="dashboard-grid bottom-grid revised-bottom-grid">

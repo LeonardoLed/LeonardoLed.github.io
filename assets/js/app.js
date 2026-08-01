@@ -10,6 +10,7 @@ const courses = DATA.courses || [];
 const state = { page: 1, perPage: 3, search: '', type: 'all', year: 'all', featured: 'all' };
 const moreState = { professional: false, academic: false, research: false, events: false, awards: false };
 const courseSeriesState = { offerings: true, students: true };
+const courseTableState = { search: '', year: 'all', program: 'all', sortKey: 'year', sortDirection: 'desc' };
 let testimonialIndex = 0;
 
 function escapeHtml(s){return String(s ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -178,12 +179,47 @@ function renderPeerReviews(){
   const pubc=document.getElementById('peer-publisher-count');if(pubc)pubc.textContent=String(publishers.size);
 }
 
+function courseFilteredRows(){
+  const query=courseTableState.search.trim().toLowerCase();
+  return courses.filter(c=>{
+    const matchesSearch=!query||[c.course,c.program,c.university,c.entity,c.level,c.semester,c.year,c.students].some(v=>String(v??'').toLowerCase().includes(query));
+    const matchesYear=courseTableState.year==='all'||String(c.year)===courseTableState.year;
+    const matchesProgram=courseTableState.program==='all'||String(c.program)===courseTableState.program;
+    return matchesSearch&&matchesYear&&matchesProgram;
+  });
+}
+
+function compareCourseRows(a,b,key){
+  if(key==='year'||key==='students')return Number(a[key]||0)-Number(b[key]||0);
+  return String(a[key]??'').localeCompare(String(b[key]??''),undefined,{numeric:true,sensitivity:'base'});
+}
+
+function sortedCourseRows(rows){
+  const direction=courseTableState.sortDirection==='asc'?1:-1;
+  return [...rows].sort((a,b)=>{
+    const primary=compareCourseRows(a,b,courseTableState.sortKey);
+    if(primary!==0)return primary*direction;
+    return ((Number(b.year)||0)-(Number(a.year)||0))||String(b.semester??'').localeCompare(String(a.semester??''),undefined,{numeric:true});
+  });
+}
+
+function renderCourseSortIndicators(){
+  document.querySelectorAll('[data-course-sort]').forEach(button=>{
+    const active=button.dataset.courseSort===courseTableState.sortKey;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-sort',active?(courseTableState.sortDirection==='asc'?'ascending':'descending'):'none');
+    const indicator=button.querySelector('span');
+    if(indicator)indicator.textContent=active?(courseTableState.sortDirection==='asc'?'▲':'▼'):'⇅';
+  });
+}
+
 function renderCourses(){
   const chart=document.getElementById('courses-chart');
   const tbody=document.getElementById('courses-table-body');
   if(!chart&&!tbody)return;
-  const byYear=[...new Set(courses.map(c=>c.year))].sort((a,b)=>a-b).map(year=>{
-    const rows=courses.filter(c=>c.year===year);
+  const filteredRows=courseFilteredRows();
+  const byYear=[...new Set(filteredRows.map(c=>c.year))].sort((a,b)=>a-b).map(year=>{
+    const rows=filteredRows.filter(c=>c.year===year);
     return {year,offerings:rows.length,students:rows.reduce((sum,c)=>sum+Number(c.students||0),0)};
   });
   const maxOfferings=Math.max(1,...byYear.map(d=>d.offerings));
@@ -192,24 +228,31 @@ function renderCourses(){
     const offeringsButton=`<button type="button" class="courses-legend-toggle ${courseSeriesState.offerings?'active':'inactive'}" data-course-series="offerings" aria-pressed="${courseSeriesState.offerings}"><i class="course-bar-swatch"></i>Course offerings</button>`;
     const studentsButton=`<button type="button" class="courses-legend-toggle ${courseSeriesState.students?'active':'inactive'}" data-course-series="students" aria-pressed="${courseSeriesState.students}"><i class="student-bar-swatch"></i>Students served</button>`;
     const bars=byYear.map(d=>`<article class="courses-year-group" title="${d.year}: ${d.offerings} course offerings, ${d.students} students"><div class="courses-bars">${courseSeriesState.offerings?`<div class="courses-bar course-offerings" style="height:${Math.max(24,(d.offerings/maxOfferings)*180)}px"><strong>${d.offerings}</strong></div>`:''}${courseSeriesState.students?`<div class="courses-bar course-students" style="height:${Math.max(24,(d.students/maxStudents)*180)}px"><strong>${d.students}</strong></div>`:''}</div><span>${d.year}</span></article>`).join('');
-    const emptyMessage=!courseSeriesState.offerings&&!courseSeriesState.students?'<p class="courses-chart-empty">Select a series to display the chart.</p>':'';
-    chart.innerHTML=`<div class="courses-chart-legend" aria-label="Toggle chart series">${offeringsButton}${studentsButton}</div>${emptyMessage}<div class="courses-chart-grid ${!courseSeriesState.offerings&&!courseSeriesState.students?'all-series-hidden':''}">${bars}</div><div class="courses-axis-labels"><span class="${courseSeriesState.offerings?'':'series-label-off'}">Left scale: course offerings</span><span class="${courseSeriesState.students?'':'series-label-off'}">Right scale: students served</span></div>`;
-    chart.querySelectorAll('[data-course-series]').forEach(button=>{
-      button.addEventListener('click',()=>{
-        const series=button.dataset.courseSeries;
-        courseSeriesState[series]=!courseSeriesState[series];
-        renderCourses();
-      });
-    });
+    const noRows=!filteredRows.length?'<p class="courses-chart-empty">No courses match the current filters.</p>':'';
+    const noSeries=filteredRows.length&&!courseSeriesState.offerings&&!courseSeriesState.students?'<p class="courses-chart-empty">Select a series to display the chart.</p>':'';
+    chart.innerHTML=`<div class="courses-chart-legend" aria-label="Toggle chart series">${offeringsButton}${studentsButton}</div>${noRows||noSeries}<div class="courses-chart-grid ${(!filteredRows.length||(!courseSeriesState.offerings&&!courseSeriesState.students))?'all-series-hidden':''}">${bars}</div><div class="courses-axis-labels"><span class="${courseSeriesState.offerings?'':'series-label-off'}">Left scale: course offerings</span><span class="${courseSeriesState.students?'':'series-label-off'}">Right scale: students served</span></div>`;
+    chart.querySelectorAll('[data-course-series]').forEach(button=>button.addEventListener('click',()=>{const series=button.dataset.courseSeries;courseSeriesState[series]=!courseSeriesState[series];renderCourses();}));
   }
   if(tbody){
-    tbody.innerHTML=[...courses].sort((a,b)=>(b.year-a.year)||String(b.semester).localeCompare(String(a.semester))).map((c,i)=>`<tr><td>${i+1}</td><td><span class="date">${escapeHtml(c.year)}</span></td><td><strong>${escapeHtml(c.course)}</strong><small>${escapeHtml(c.university)}</small></td><td>${escapeHtml(c.program)}</td><td>${escapeHtml(c.semester)}</td><td class="courses-students-cell">${escapeHtml(c.students)}</td></tr>`).join('');
+    const rows=sortedCourseRows(filteredRows);
+    tbody.innerHTML=rows.length?rows.map((c,i)=>`<tr><td>${i+1}</td><td><span class="date">${escapeHtml(c.year)}</span></td><td><strong>${escapeHtml(c.course)}</strong><small>${escapeHtml(c.university)}</small></td><td>${escapeHtml(c.program)}</td><td>${escapeHtml(c.semester)}</td><td class="courses-students-cell">${escapeHtml(c.students)}</td></tr>`).join(''):'<tr><td colspan="6" class="courses-empty-row">No courses found.</td></tr>';
   }
+  renderCourseSortIndicators();
   const totalStudents=courses.reduce((sum,c)=>sum+Number(c.students||0),0);
   const offerings=document.getElementById('courses-total-offerings');if(offerings)offerings.textContent=String(courses.length);
   const students=document.getElementById('courses-total-students');if(students)students.textContent=String(totalStudents);
-  const years=document.getElementById('courses-years-active');if(years)years.textContent=String(byYear.length);
+  const years=document.getElementById('courses-years-active');if(years)years.textContent=String(new Set(courses.map(c=>c.year)).size);
   const stat=document.getElementById('stat-courses');if(stat)stat.textContent=String(courses.length);
+  const status=document.getElementById('courses-table-status');if(status)status.textContent=`Showing ${filteredRows.length} of ${courses.length} course offerings.`;
+}
+
+function initCourseTable(){
+  const yearSelect=document.getElementById('courses-year-filter');
+  const programSelect=document.getElementById('courses-program-filter');
+  if(yearSelect){[...new Set(courses.map(c=>c.year))].sort((a,b)=>b-a).forEach(year=>{const option=document.createElement('option');option.value=String(year);option.textContent=String(year);yearSelect.appendChild(option);});yearSelect.addEventListener('change',e=>{courseTableState.year=e.target.value;renderCourses();});}
+  if(programSelect){[...new Set(courses.map(c=>c.program).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b))).forEach(program=>{const option=document.createElement('option');option.value=String(program);option.textContent=String(program);programSelect.appendChild(option);});programSelect.addEventListener('change',e=>{courseTableState.program=e.target.value;renderCourses();});}
+  document.getElementById('courses-search')?.addEventListener('input',e=>{courseTableState.search=e.target.value;renderCourses();});
+  document.querySelectorAll('[data-course-sort]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.courseSort;if(courseTableState.sortKey===key)courseTableState.sortDirection=courseTableState.sortDirection==='asc'?'desc':'asc';else{courseTableState.sortKey=key;courseTableState.sortDirection=(key==='year'||key==='students')?'desc':'asc';}renderCourses();}));
 }
 
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}
@@ -225,6 +268,7 @@ renderEvents();
 renderAwards();
 renderProjects();
 renderPeerReviews();
+initCourseTable();
 renderCourses();
 initShowMore();
 initTestimonials();

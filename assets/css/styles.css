@@ -809,3 +809,18 @@ html,body{max-width:100%;overflow-x:hidden}
 .courses-chart-empty{height:190px;display:grid;place-items:center;margin:0;color:#6a7e94;font-size:13px;font-weight:700;text-align:center}
 .courses-chart-grid.all-series-hidden{display:none}
 .series-label-off{opacity:.35;text-decoration:line-through}
+
+/* Courses table controls and sorting */
+.courses-table-tools{display:grid;grid-template-columns:minmax(220px,1.5fr) minmax(140px,.55fr) minmax(220px,1fr);gap:12px;margin:0 0 14px}
+.courses-table-tools label{display:grid;gap:6px;min-width:0;color:#526b87;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
+.courses-table-tools input,.courses-table-tools select{width:100%;min-width:0;border:1px solid var(--line);border-radius:11px;background:#fff;color:#173b62;padding:10px 12px;font:inherit;font-size:13px;text-transform:none;letter-spacing:normal;outline:none}
+.courses-table-tools input:focus,.courses-table-tools select:focus{border-color:#2b7fd3;box-shadow:0 0 0 3px rgba(43,127,211,.12)}
+.courses-sort{appearance:none;border:0;background:transparent;color:inherit;font:inherit;font-weight:850;padding:0;display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-align:left}
+.courses-sort span{color:#95a6b8;font-size:10px;min-width:10px}
+.courses-sort.active{color:#0758b8}
+.courses-sort.active span{color:#0758b8}
+.courses-sort:focus-visible{outline:2px solid #1f6feb;outline-offset:4px;border-radius:3px}
+.courses-table-status{margin:10px 2px 0;color:#6a7e94;font-size:12px;font-weight:700}
+.courses-empty-row{text-align:center!important;padding:28px!important;color:#6a7e94!important}
+@media(max-width:760px){.courses-table-tools{grid-template-columns:1fr 1fr}.courses-search-label{grid-column:1/-1}}
+@media(max-width:480px){.courses-table-tools{grid-template-columns:1fr}.courses-search-label{grid-column:auto}}

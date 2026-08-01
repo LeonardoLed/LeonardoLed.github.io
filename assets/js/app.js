@@ -10,7 +10,7 @@ const courses = DATA.courses || [];
 const state = { page: 1, perPage: 3, search: '', type: 'all', year: 'all', featured: 'all' };
 const moreState = { professional: false, academic: false, research: false, events: false, awards: false };
 const courseSeriesState = { offerings: true, students: true };
-const courseTableState = { search: '', year: 'all', program: 'all', sortKey: 'year', sortDirection: 'desc' };
+const courseTableState = { search: '', year: 'all', program: 'all', sortKey: 'year', sortDirection: 'desc', page: 1, perPage: 5 };
 let testimonialIndex = 0;
 
 function escapeHtml(s){return String(s ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -230,12 +230,25 @@ function renderCourses(){
     const bars=byYear.map(d=>`<article class="courses-year-group" title="${d.year}: ${d.offerings} course offerings, ${d.students} students"><div class="courses-bars">${courseSeriesState.offerings?`<div class="courses-bar course-offerings" style="height:${Math.max(24,(d.offerings/maxOfferings)*180)}px"><strong>${d.offerings}</strong></div>`:''}${courseSeriesState.students?`<div class="courses-bar course-students" style="height:${Math.max(24,(d.students/maxStudents)*180)}px"><strong>${d.students}</strong></div>`:''}</div><span>${d.year}</span></article>`).join('');
     const noRows=!filteredRows.length?'<p class="courses-chart-empty">No courses match the current filters.</p>':'';
     const noSeries=filteredRows.length&&!courseSeriesState.offerings&&!courseSeriesState.students?'<p class="courses-chart-empty">Select a series to display the chart.</p>':'';
-    chart.innerHTML=`<div class="courses-chart-legend" aria-label="Toggle chart series">${offeringsButton}${studentsButton}</div>${noRows||noSeries}<div class="courses-chart-grid ${(!filteredRows.length||(!courseSeriesState.offerings&&!courseSeriesState.students))?'all-series-hidden':''}">${bars}</div><div class="courses-axis-labels"><span class="${courseSeriesState.offerings?'':'series-label-off'}">Left scale: course offerings</span><span class="${courseSeriesState.students?'':'series-label-off'}">Right scale: students served</span></div>`;
+    chart.innerHTML=`<div class="courses-chart-legend" aria-label="Toggle chart series">${offeringsButton}${studentsButton}</div>${noRows||noSeries}<div class="courses-chart-grid ${byYear.length===1?'single-year':''} ${(!filteredRows.length||(!courseSeriesState.offerings&&!courseSeriesState.students))?'all-series-hidden':''}">${bars}</div><div class="courses-axis-labels"><span class="${courseSeriesState.offerings?'':'series-label-off'}">Left scale: course offerings</span><span class="${courseSeriesState.students?'':'series-label-off'}">Right scale: students served</span></div>`;
     chart.querySelectorAll('[data-course-series]').forEach(button=>button.addEventListener('click',()=>{const series=button.dataset.courseSeries;courseSeriesState[series]=!courseSeriesState[series];renderCourses();}));
   }
+  const rows=sortedCourseRows(filteredRows);
+  const totalPages=Math.max(1,Math.ceil(rows.length/courseTableState.perPage));
+  if(courseTableState.page>totalPages)courseTableState.page=totalPages;
+  const start=(courseTableState.page-1)*courseTableState.perPage;
+  const pageRows=rows.slice(start,start+courseTableState.perPage);
   if(tbody){
-    const rows=sortedCourseRows(filteredRows);
-    tbody.innerHTML=rows.length?rows.map((c,i)=>`<tr><td>${i+1}</td><td><span class="date">${escapeHtml(c.year)}</span></td><td><strong>${escapeHtml(c.course)}</strong><small>${escapeHtml(c.university)}</small></td><td>${escapeHtml(c.program)}</td><td>${escapeHtml(c.semester)}</td><td class="courses-students-cell">${escapeHtml(c.students)}</td></tr>`).join(''):'<tr><td colspan="6" class="courses-empty-row">No courses found.</td></tr>';
+    tbody.innerHTML=pageRows.length?pageRows.map((c,i)=>`<tr><td>${start+i+1}</td><td><span class="date">${escapeHtml(c.year)}</span></td><td><strong>${escapeHtml(c.course)}</strong><small>${escapeHtml(c.university)}</small></td><td>${escapeHtml(c.program)}</td><td>${escapeHtml(c.semester)}</td><td class="courses-students-cell">${escapeHtml(c.students)}</td></tr>`).join(''):'<tr><td colspan="6" class="courses-empty-row">No courses found.</td></tr>';
+  }
+  const pager=document.getElementById('courses-pager');
+  if(pager){
+    pager.innerHTML='';
+    if(totalPages>1){
+      const prev=document.createElement('button');prev.type='button';prev.textContent='‹';prev.disabled=courseTableState.page===1;prev.setAttribute('aria-label','Previous courses page');prev.onclick=()=>{courseTableState.page--;renderCourses();};pager.appendChild(prev);
+      for(let i=1;i<=totalPages;i++){const button=document.createElement('button');button.type='button';button.textContent=String(i);button.className=i===courseTableState.page?'active':'';button.setAttribute('aria-label',`Courses page ${i}`);button.onclick=()=>{courseTableState.page=i;renderCourses();};pager.appendChild(button);}
+      const next=document.createElement('button');next.type='button';next.textContent='›';next.disabled=courseTableState.page===totalPages;next.setAttribute('aria-label','Next courses page');next.onclick=()=>{courseTableState.page++;renderCourses();};pager.appendChild(next);
+    }
   }
   renderCourseSortIndicators();
   const totalStudents=courses.reduce((sum,c)=>sum+Number(c.students||0),0);
@@ -243,16 +256,16 @@ function renderCourses(){
   const students=document.getElementById('courses-total-students');if(students)students.textContent=String(totalStudents);
   const years=document.getElementById('courses-years-active');if(years)years.textContent=String(new Set(courses.map(c=>c.year)).size);
   const stat=document.getElementById('stat-courses');if(stat)stat.textContent=String(courses.length);
-  const status=document.getElementById('courses-table-status');if(status)status.textContent=`Showing ${filteredRows.length} of ${courses.length} course offerings.`;
+  const status=document.getElementById('courses-table-status');if(status){const from=rows.length?start+1:0;const to=Math.min(start+courseTableState.perPage,rows.length);status.textContent=`Showing ${from}–${to} of ${rows.length} filtered course offerings (${courses.length} total).`;}
 }
 
 function initCourseTable(){
   const yearSelect=document.getElementById('courses-year-filter');
   const programSelect=document.getElementById('courses-program-filter');
-  if(yearSelect){[...new Set(courses.map(c=>c.year))].sort((a,b)=>b-a).forEach(year=>{const option=document.createElement('option');option.value=String(year);option.textContent=String(year);yearSelect.appendChild(option);});yearSelect.addEventListener('change',e=>{courseTableState.year=e.target.value;renderCourses();});}
-  if(programSelect){[...new Set(courses.map(c=>c.program).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b))).forEach(program=>{const option=document.createElement('option');option.value=String(program);option.textContent=String(program);programSelect.appendChild(option);});programSelect.addEventListener('change',e=>{courseTableState.program=e.target.value;renderCourses();});}
-  document.getElementById('courses-search')?.addEventListener('input',e=>{courseTableState.search=e.target.value;renderCourses();});
-  document.querySelectorAll('[data-course-sort]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.courseSort;if(courseTableState.sortKey===key)courseTableState.sortDirection=courseTableState.sortDirection==='asc'?'desc':'asc';else{courseTableState.sortKey=key;courseTableState.sortDirection=(key==='year'||key==='students')?'desc':'asc';}renderCourses();}));
+  if(yearSelect){[...new Set(courses.map(c=>c.year))].sort((a,b)=>b-a).forEach(year=>{const option=document.createElement('option');option.value=String(year);option.textContent=String(year);yearSelect.appendChild(option);});yearSelect.addEventListener('change',e=>{courseTableState.year=e.target.value;courseTableState.page=1;renderCourses();});}
+  if(programSelect){[...new Set(courses.map(c=>c.program).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b))).forEach(program=>{const option=document.createElement('option');option.value=String(program);option.textContent=String(program);programSelect.appendChild(option);});programSelect.addEventListener('change',e=>{courseTableState.program=e.target.value;courseTableState.page=1;renderCourses();});}
+  document.getElementById('courses-search')?.addEventListener('input',e=>{courseTableState.search=e.target.value;courseTableState.page=1;renderCourses();});
+  document.querySelectorAll('[data-course-sort]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.courseSort;if(courseTableState.sortKey===key)courseTableState.sortDirection=courseTableState.sortDirection==='asc'?'desc':'asc';else{courseTableState.sortKey=key;courseTableState.sortDirection=(key==='year'||key==='students')?'desc':'asc';}courseTableState.page=1;renderCourses();}));
 }
 
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}

@@ -824,3 +824,14 @@ html,body{max-width:100%;overflow-x:hidden}
 .courses-empty-row{text-align:center!important;padding:28px!important;color:#6a7e94!important}
 @media(max-width:760px){.courses-table-tools{grid-template-columns:1fr 1fr}.courses-search-label{grid-column:1/-1}}
 @media(max-width:480px){.courses-table-tools{grid-template-columns:1fr}.courses-search-label{grid-column:auto}}
+
+/* Courses table pagination and single-year chart alignment */
+.courses-chart-grid.single-year{grid-template-columns:minmax(120px,260px);justify-content:center}
+.courses-chart-grid.single-year .courses-year-group{width:100%;max-width:220px;justify-self:center}
+.courses-pager{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:14px}
+.courses-pager:empty{display:none}
+.courses-pager button{width:34px;height:34px;border:1px solid #d7e6f8;border-radius:10px;background:#fff;color:#07376d;font-weight:850;cursor:pointer}
+.courses-pager button:hover:not(:disabled){background:#eef6ff;border-color:#b9d8fa}
+.courses-pager button.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
+.courses-pager button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:560px){.courses-chart-grid.single-year{grid-template-columns:minmax(100px,180px)}.courses-chart-grid.single-year .courses-year-group{max-width:160px}}

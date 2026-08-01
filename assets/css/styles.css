@@ -742,3 +742,70 @@ html,body{max-width:100%;overflow-x:hidden}
   .other-studies{margin-left:0}
   .other-studies summary{padding:14px}
 }
+
+
+/* Courses Taught */
+.courses-section{overflow:hidden}
+.courses-intro{margin:-4px 0 20px;color:var(--muted)}
+.courses-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.courses-summary article{border:1px solid var(--line);border-radius:14px;background:#fff;padding:15px 17px;display:flex;align-items:baseline;gap:10px}
+.courses-summary strong{font-size:25px;color:#07376d}
+.courses-summary span{font-size:12px;font-weight:800;color:#637991}
+.courses-chart{border:1px solid var(--line);border-radius:16px;background:#fff;padding:20px 22px 14px;margin-bottom:20px}
+.courses-chart-legend{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:18px;color:#4a6079;font-size:12px;font-weight:800}
+.courses-chart-legend span{display:inline-flex;align-items:center;gap:8px}
+.courses-chart-legend i{width:18px;height:10px;border-radius:3px;display:inline-block}
+.course-bar-swatch{background:#0d4f7c}.student-bar-swatch{background:#2d8cda}
+.courses-chart-grid{height:230px;display:grid;grid-template-columns:repeat(4,minmax(80px,1fr));align-items:end;gap:24px;padding:14px 16px 0;border-bottom:1px solid #b8c8d8;background:repeating-linear-gradient(to top,transparent 0,transparent 44px,#e8eef5 45px)}
+.courses-year-group{min-width:0;display:grid;gap:10px;text-align:center;color:#203e60;font-weight:900}
+.courses-bars{height:190px;display:flex;align-items:end;justify-content:center;gap:10px}
+.courses-bar{width:min(54px,36%);min-width:24px;border-radius:7px 7px 0 0;position:relative;display:flex;justify-content:center;transition:.2s ease}
+.courses-bar:hover{filter:brightness(1.06)}
+.courses-bar strong{position:absolute;top:-22px;color:#173b62;font-size:12px}
+.course-offerings{background:#0d4f7c}.course-students{background:#2d8cda}
+.courses-axis-labels{display:flex;justify-content:space-between;gap:16px;margin-top:10px;color:#6a7e94;font-size:11px;font-weight:700}
+.courses-table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:15px;background:#fff}
+.courses-table{width:100%;border-collapse:collapse;min-width:820px}
+.courses-table th,.courses-table td{padding:12px 14px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:middle}
+.courses-table th{background:#f6f9fc;color:#2e435a;font-size:12px;letter-spacing:.02em}
+.courses-table td{color:#425b74;font-size:13px}
+.courses-table tbody tr:last-child td{border-bottom:0}
+.courses-table tbody tr:hover{background:#f9fbfd}
+.courses-table td strong{display:block;color:#07376d;margin-bottom:3px}
+.courses-table td small{display:block;color:#788ba0}
+.courses-students-cell{text-align:center!important;font-weight:900;color:#07376d!important}
+@media(max-width:900px){
+  .courses-chart-grid{gap:12px;padding-inline:6px}
+  .courses-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .courses-summary{grid-template-columns:1fr}
+  .courses-chart{padding:16px 10px 12px}
+  .courses-chart-grid{height:205px;grid-template-columns:repeat(4,minmax(50px,1fr));gap:6px}
+  .courses-bars{height:165px;gap:4px}
+  .courses-bar{min-width:18px;width:42%}
+  .courses-axis-labels{display:grid;gap:3px;text-align:center}
+}
+
+/* Interactive Courses Taught chart legend */
+.courses-chart-legend .courses-legend-toggle{
+  appearance:none;
+  border:0;
+  background:transparent;
+  color:#4a6079;
+  font:inherit;
+  font-weight:800;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 9px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:opacity .2s ease,background .2s ease,transform .2s ease;
+}
+.courses-chart-legend .courses-legend-toggle:hover{background:#f0f5fa;transform:translateY(-1px)}
+.courses-chart-legend .courses-legend-toggle.inactive{opacity:.38;text-decoration:line-through}
+.courses-chart-legend .courses-legend-toggle:focus-visible{outline:2px solid #1f6feb;outline-offset:2px}
+.courses-chart-empty{height:190px;display:grid;place-items:center;margin:0;color:#6a7e94;font-size:13px;font-weight:700;text-align:center}
+.courses-chart-grid.all-series-hidden{display:none}
+.series-label-off{opacity:.35;text-decoration:line-through}

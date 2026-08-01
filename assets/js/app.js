@@ -6,8 +6,10 @@ const awards = DATA.awards || [];
 const testimonials = DATA.testimonials || [];
 const projects = DATA.projects || { featured: [], previous: [] };
 const peerReviews = DATA.peerReviews || { published: [], active: [] };
+const courses = DATA.courses || [];
 const state = { page: 1, perPage: 3, search: '', type: 'all', year: 'all', featured: 'all' };
 const moreState = { professional: false, academic: false, research: false, events: false, awards: false };
+const courseSeriesState = { offerings: true, students: true };
 let testimonialIndex = 0;
 
 function escapeHtml(s){return String(s ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -176,6 +178,40 @@ function renderPeerReviews(){
   const pubc=document.getElementById('peer-publisher-count');if(pubc)pubc.textContent=String(publishers.size);
 }
 
+function renderCourses(){
+  const chart=document.getElementById('courses-chart');
+  const tbody=document.getElementById('courses-table-body');
+  if(!chart&&!tbody)return;
+  const byYear=[...new Set(courses.map(c=>c.year))].sort((a,b)=>a-b).map(year=>{
+    const rows=courses.filter(c=>c.year===year);
+    return {year,offerings:rows.length,students:rows.reduce((sum,c)=>sum+Number(c.students||0),0)};
+  });
+  const maxOfferings=Math.max(1,...byYear.map(d=>d.offerings));
+  const maxStudents=Math.max(1,...byYear.map(d=>d.students));
+  if(chart){
+    const offeringsButton=`<button type="button" class="courses-legend-toggle ${courseSeriesState.offerings?'active':'inactive'}" data-course-series="offerings" aria-pressed="${courseSeriesState.offerings}"><i class="course-bar-swatch"></i>Course offerings</button>`;
+    const studentsButton=`<button type="button" class="courses-legend-toggle ${courseSeriesState.students?'active':'inactive'}" data-course-series="students" aria-pressed="${courseSeriesState.students}"><i class="student-bar-swatch"></i>Students served</button>`;
+    const bars=byYear.map(d=>`<article class="courses-year-group" title="${d.year}: ${d.offerings} course offerings, ${d.students} students"><div class="courses-bars">${courseSeriesState.offerings?`<div class="courses-bar course-offerings" style="height:${Math.max(24,(d.offerings/maxOfferings)*180)}px"><strong>${d.offerings}</strong></div>`:''}${courseSeriesState.students?`<div class="courses-bar course-students" style="height:${Math.max(24,(d.students/maxStudents)*180)}px"><strong>${d.students}</strong></div>`:''}</div><span>${d.year}</span></article>`).join('');
+    const emptyMessage=!courseSeriesState.offerings&&!courseSeriesState.students?'<p class="courses-chart-empty">Select a series to display the chart.</p>':'';
+    chart.innerHTML=`<div class="courses-chart-legend" aria-label="Toggle chart series">${offeringsButton}${studentsButton}</div>${emptyMessage}<div class="courses-chart-grid ${!courseSeriesState.offerings&&!courseSeriesState.students?'all-series-hidden':''}">${bars}</div><div class="courses-axis-labels"><span class="${courseSeriesState.offerings?'':'series-label-off'}">Left scale: course offerings</span><span class="${courseSeriesState.students?'':'series-label-off'}">Right scale: students served</span></div>`;
+    chart.querySelectorAll('[data-course-series]').forEach(button=>{
+      button.addEventListener('click',()=>{
+        const series=button.dataset.courseSeries;
+        courseSeriesState[series]=!courseSeriesState[series];
+        renderCourses();
+      });
+    });
+  }
+  if(tbody){
+    tbody.innerHTML=[...courses].sort((a,b)=>(b.year-a.year)||String(b.semester).localeCompare(String(a.semester))).map((c,i)=>`<tr><td>${i+1}</td><td><span class="date">${escapeHtml(c.year)}</span></td><td><strong>${escapeHtml(c.course)}</strong><small>${escapeHtml(c.university)}</small></td><td>${escapeHtml(c.program)}</td><td>${escapeHtml(c.semester)}</td><td class="courses-students-cell">${escapeHtml(c.students)}</td></tr>`).join('');
+  }
+  const totalStudents=courses.reduce((sum,c)=>sum+Number(c.students||0),0);
+  const offerings=document.getElementById('courses-total-offerings');if(offerings)offerings.textContent=String(courses.length);
+  const students=document.getElementById('courses-total-students');if(students)students.textContent=String(totalStudents);
+  const years=document.getElementById('courses-years-active');if(years)years.textContent=String(byYear.length);
+  const stat=document.getElementById('stat-courses');if(stat)stat.textContent=String(courses.length);
+}
+
 function initShowMore(){document.querySelectorAll('[data-show-more]').forEach(btn=>{btn.addEventListener('click',()=>{const key=btn.dataset.showMore;moreState[key]=!moreState[key];if(key==='events')renderEvents();else if(key==='awards')renderAwards();else renderExperience();});});}
 function initNav(){const links=[...document.querySelectorAll('.nav-link')];const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+entry.target.id));}})},{rootMargin:'-20% 0px -70% 0px'});sections.forEach(s=>obs.observe(s));const mobile=document.querySelector('.mobile-nav-toggle');if(mobile)mobile.onclick=()=>document.querySelector('.sidebar')?.classList.toggle('open');links.forEach(a=>a.onclick=()=>document.querySelector('.sidebar')?.classList.remove('open'));const collapse=document.querySelector('.sidebar-collapse');if(collapse){collapse.addEventListener('click',()=>{document.body.classList.toggle('sidebar-collapsed');collapse.textContent=document.body.classList.contains('sidebar-collapsed')?'›':'‹';});}}
 function initTestimonials(){const windowEl=document.querySelector('.testimonial-window');const dots=document.getElementById('testimonial-dots');const wrap=document.querySelector('.testimonial-carousel');if(!windowEl||!dots||!Array.isArray(testimonials)||!testimonials.length)return;windowEl.innerHTML=testimonials.map((t,i)=>`<article class="testimonial-card ${i===0?'active':''}">${t.photo?`<img class="testimonial-photo" src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}" loading="lazy" />`:'<div class="quote-mark">“</div>'}<p>“${escapeHtml(t.text)}”</p><h3>${escapeHtml(t.name)}</h3>${t.role?`<small>${escapeHtml(t.role)}</small>`:''}${t.company?`<small>${escapeHtml(t.company)}</small>`:''}</article>`).join('');dots.innerHTML='';const cards=[...windowEl.querySelectorAll('.testimonial-card')];function show(i){testimonialIndex=(i+cards.length)%cards.length;cards.forEach((c,idx)=>c.classList.toggle('active',idx===testimonialIndex));dots.querySelectorAll('button').forEach((d,idx)=>d.classList.toggle('active',idx===testimonialIndex));}cards.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Go to testimonial ${i+1}`);b.onclick=()=>show(i);dots.appendChild(b);});document.getElementById('testimonial-prev')?.addEventListener('click',()=>show(testimonialIndex-1));document.getElementById('testimonial-next')?.addEventListener('click',()=>show(testimonialIndex+1));show(0);let timer=setInterval(()=>show(testimonialIndex+1),10000);if(wrap){wrap.addEventListener('mouseenter',()=>clearInterval(timer));wrap.addEventListener('mouseleave',()=>{timer=setInterval(()=>show(testimonialIndex+1),10000);});}}
@@ -189,5 +225,6 @@ renderEvents();
 renderAwards();
 renderProjects();
 renderPeerReviews();
+renderCourses();
 initShowMore();
 initTestimonials();

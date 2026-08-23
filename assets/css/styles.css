@@ -1251,3 +1251,494 @@ body{
   .stat-strip.editorial-stats article{min-height:94px!important;border-right:0!important;border-bottom:1px solid var(--line)!important}
   .stat-strip.editorial-stats article:last-child{border-bottom:0!important}
 }
+
+/* ============================================================
+   V2.8 — Responsive Research Highlights & Portfolio
+   ============================================================ */
+
+/* Prevent grid children from forcing horizontal overflow. */
+.research-card,
+.portfolio-two-columns,
+.mini-research-grid,
+.mini-research-grid article,
+.portfolio-two-columns .dashboard-projects,
+.portfolio-two-columns .dash-project,
+.portfolio-two-columns .previous-grid,
+.portfolio-two-columns .previous-project-card {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mini-research-grid article h3,
+.mini-research-grid article p,
+.portfolio-two-columns .dash-project h3,
+.portfolio-two-columns .dash-project p {
+  overflow-wrap: anywhere;
+}
+
+/* Large desktop: preserve current composition. */
+@media (min-width: 1361px) {
+  .mini-research-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .portfolio-two-columns .dashboard-projects {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Laptop / small desktop: portfolio becomes two columns. */
+@media (max-width: 1360px) and (min-width: 821px) {
+  .mini-research-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .portfolio-two-columns .dashboard-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .portfolio-two-columns .previous-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablet: keep highlights balanced, stack portfolio cards. */
+@media (max-width: 820px) {
+  .research-card,
+  .portfolio-two-columns {
+    padding: 20px !important;
+  }
+  .mini-research-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .mini-research-grid article {
+    min-height: 0 !important;
+    padding: 16px 14px !important;
+  }
+  .portfolio-two-columns .dashboard-projects,
+  .portfolio-two-columns .previous-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .portfolio-two-columns .dash-project {
+    min-height: 0 !important;
+  }
+  .portfolio-two-columns .section-title.compact-title h2 {
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+/* Phone: one highlight per row and tighter project cards. */
+@media (max-width: 560px) {
+  .research-card,
+  .portfolio-two-columns {
+    padding: 16px !important;
+  }
+  .mini-research-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .mini-research-grid article {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    column-gap: 12px !important;
+    row-gap: 3px !important;
+    align-items: center !important;
+    text-align: left !important;
+    padding: 13px !important;
+  }
+  .mini-research-grid .circle-icon {
+    grid-row: 1 / span 2 !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+  }
+  .mini-research-grid h3 {
+    margin: 0 !important;
+    font-size: 13px !important;
+  }
+  .mini-research-grid p {
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+  .portfolio-two-columns .dashboard-projects {
+    gap: 12px !important;
+  }
+  .portfolio-two-columns .dash-project {
+    padding: 14px !important;
+  }
+  .portfolio-two-columns .project-logo-img {
+    height: 58px !important;
+  }
+  .portfolio-two-columns .project-logo-img img {
+    max-width: min(140px, 72vw) !important;
+    max-height: 54px !important;
+  }
+  .portfolio-two-columns .project-keywords {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+  }
+}
+
+
+/* ============================================================
+   V2.9 — Full responsive audit
+   Keeps desktop design intact; fixes tablet/mobile behavior.
+   ============================================================ */
+
+/* Universal shrinkability for grid/flex children */
+.dashboard-page *,
+.dashboard-card *,
+.dashboard-grid > *,
+.snapshot-grid > *,
+.stat-strip > *,
+.publication-layout > *,
+.experience-3col > *,
+.stays-ip-grid > *,
+.peer-stats > *,
+.skill-category-grid > *,
+.language-grid > *,
+.awards-grid > * {
+  min-width: 0;
+}
+
+/* Media should never force horizontal overflow */
+img, svg, canvas {
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+
+/* Long academic text, DOIs, URLs and labels */
+.publication-card,
+.education-entry,
+.event-row,
+.ip-card,
+.peer-review-card,
+.testimonial-card,
+.contact-card,
+.course-card {
+  overflow-wrap: anywhere;
+}
+
+/* Scroll only the data table itself, never the page */
+.courses-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.courses-table {
+  min-width: 760px;
+}
+
+/* Chart containers stay inside their cards */
+.pub-chart,
+.courses-chart,
+.publication-chart-panel,
+.publication-chart-top {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* ---------- Laptop / small desktop ---------- */
+@media (max-width: 1200px) {
+  .page.dashboard-page {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .final-top-grid,
+  .revised-top-grid,
+  .top-grid,
+  .mid-grid,
+  .revised-mid-grid,
+  .bottom-grid,
+  .revised-bottom-grid,
+  .stays-ip-grid,
+  .publication-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .publication-chart-panel {
+    position: static !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--dash-line) !important;
+    padding-left: 0 !important;
+    padding-top: 18px !important;
+  }
+
+  .experience-3col {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+  .experience-3col .experience-column:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .skill-category-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .skills-wide .dashboard-languages,
+  .skill-language-row {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+
+  .awards-grid {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .page.dashboard-page {
+    margin-left: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    padding: 14px !important;
+    gap: 14px !important;
+  }
+
+  .dashboard-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px !important;
+  }
+
+  .snapshot-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .stat-strip.editorial-stats {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+
+  .experience-3col {
+    grid-template-columns: 1fr !important;
+  }
+  .experience-3col .experience-column:last-child {
+    grid-column: auto;
+  }
+  .experience-column {
+    border-right: 0 !important;
+  }
+
+  .education-entry {
+    grid-template-columns: 1fr !important;
+  }
+  .education-period {
+    justify-self: start !important;
+  }
+
+  .stays-ip-grid,
+  .publication-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .peer-stats {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .courses-summary {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .courses-table-tools,
+  .dashboard-filters,
+  .filters {
+    flex-wrap: wrap !important;
+  }
+
+  .courses-search-label,
+  .filters input,
+  .filters select {
+    max-width: 100% !important;
+  }
+
+  .skill-category-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .skills-wide .dashboard-languages,
+  .skill-language-row {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .testimonial-carousel {
+    grid-template-columns: 1fr !important;
+  }
+  .testimonial-window {
+    min-height: 0 !important;
+  }
+
+  .awards-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .contact-card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ---------- Phone / narrow tablet ---------- */
+@media (max-width: 700px) {
+  .snapshot-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .snapshot-card.editorial-snapshot-card {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--line) !important;
+    min-height: auto !important;
+  }
+  .snapshot-card.editorial-snapshot-card:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .stat-strip.editorial-stats {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .peer-stats,
+  .courses-summary,
+  .skill-category-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .skills-wide .dashboard-languages,
+  .skill-language-row {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+  .event-row,
+  .stays-dashboard .event-row,
+  .events-dashboard .event-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .event-row > *,
+  .stay-main,
+  .education-meta {
+    justify-self: start !important;
+    text-align: left !important;
+  }
+
+  .ip-card,
+  .enhanced-ip-card,
+  .clean-ip-card,
+  .serious-ip {
+    grid-template-columns: 1fr !important;
+  }
+  .ip-icon {
+    width: auto !important;
+    justify-self: start !important;
+  }
+
+  .publication-card,
+  .publication-records-dashboard .publication-card {
+    grid-template-columns: 1fr !important;
+  }
+  .pub-side {
+    grid-template-columns: 1fr !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--line) !important;
+    padding-left: 0 !important;
+    padding-top: 12px !important;
+  }
+
+  .awards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .courses-pager {
+    flex-wrap: wrap !important;
+  }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 560px) {
+  .page.dashboard-page {
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  .dashboard-card {
+    padding: 15px !important;
+    border-radius: 10px !important;
+  }
+
+  .section-title {
+    gap: 8px !important;
+    align-items: flex-start !important;
+  }
+  .section-title h2 {
+    font-size: clamp(1.35rem, 7vw, 1.7rem) !important;
+    line-height: 1.12 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .stat-strip.editorial-stats {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+  .stat-strip.editorial-stats article {
+    min-height: 68px !important;
+    padding: 8px !important;
+  }
+
+  .skills-wide .dashboard-languages,
+  .skill-language-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .courses-table {
+    min-width: 680px;
+  }
+
+  .courses-table-tools,
+  .filters,
+  .dashboard-filters {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100%;
+  }
+
+  .filters input,
+  .filters select,
+  .courses-search-label,
+  .courses-search-label input {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .testimonial-card,
+  .education-entry,
+  .event-row,
+  .ip-card,
+  .peer-review-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hero-card .hero-description {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+/* ---------- Very narrow phones ---------- */
+@media (max-width: 390px) {
+  .stat-strip.editorial-stats {
+    grid-template-columns: 1fr !important;
+  }
+  .courses-table {
+    min-width: 620px;
+  }
+}

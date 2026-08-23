@@ -21,9 +21,9 @@ window.CVLEO_DATA.projects = {
     },
     {
       title: 'CDBProm',
-      subtitle: 'The Comprehensive Directory of Bacterial Promoters.',
+      subtitle: 'The Comprehensive Directory of Bacterial Promoters. A second version is currently under development.',
       period: '2024–Present',
-      status: 'v2.0 in development',
+      status: 'Version 2.0 currently under construction',
       image: 'assets/img/portfolio/cdbprom.png',
       fallbackImage: 'assets/img/portfolio/portfolio-2.jpg',
       url: 'https://aw.iimas.unam.mx/cdbprom/',

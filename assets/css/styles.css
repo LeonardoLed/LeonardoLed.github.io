@@ -1840,3 +1840,96 @@ img {
   min-width: 0 !important;
   overflow-wrap: anywhere;
 }
+
+
+/* ============================================================
+   V2.11 — definitive structural responsive layout
+   This new wrapper intentionally does NOT inherit the legacy top-grid.
+   ============================================================ */
+.home-feature-stack{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  max-width:100%!important;
+  gap:18px!important;
+  align-items:stretch!important;
+}
+.home-feature-stack > *{
+  grid-column:1!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+
+/* Research Highlights */
+.home-feature-stack .mini-research-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+.home-feature-stack .mini-research-grid > article{
+  width:100%!important;
+  min-width:0!important;
+}
+
+/* Portfolio — explicit predictable column counts. */
+.home-feature-stack .portfolio-two-columns .dashboard-projects{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  width:100%!important;
+}
+.home-feature-stack .portfolio-two-columns .previous-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px!important;
+  width:100%!important;
+}
+.home-feature-stack .portfolio-two-columns .dash-project,
+.home-feature-stack .portfolio-two-columns .previous-project-card{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+}
+.home-feature-stack .portfolio-two-columns .section-title.compact-title h2{
+  white-space:normal!important;
+  flex-wrap:wrap!important;
+}
+
+/* Six stats remain full width. */
+.home-feature-stack .stat-strip.editorial-stats{
+  grid-column:1!important;
+  width:100%!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+
+/* Medium desktop / tablet landscape */
+@media (max-width:1200px){
+  .home-feature-stack .mini-research-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .home-feature-stack .portfolio-two-columns .dashboard-projects{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Tablet / phone */
+@media (max-width:760px){
+  .home-feature-stack{gap:14px!important}
+  .home-feature-stack .mini-research-grid{
+    grid-template-columns:1fr!important;
+  }
+  .home-feature-stack .portfolio-two-columns .dashboard-projects,
+  .home-feature-stack .portfolio-two-columns .previous-grid{
+    grid-template-columns:1fr!important;
+  }
+  .home-feature-stack .stat-strip.editorial-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media (max-width:420px){
+  .home-feature-stack .stat-strip.editorial-stats{
+    grid-template-columns:1fr!important;
+  }
+}

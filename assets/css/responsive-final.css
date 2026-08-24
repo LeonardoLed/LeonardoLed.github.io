@@ -1,0 +1,139 @@
+/* V2.12 definitive responsive layer. Loaded LAST on purpose. */
+*,:before,:after{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+
+/* Top-level page is a normal vertical document flow. This removes every
+   legacy implicit grid placement problem from the main content. */
+.page.dashboard-page{
+  display:block!important;
+  min-width:0!important;
+}
+.page.dashboard-page > *{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-bottom:18px!important;
+}
+
+/* The three sections that previously broke now always span the content width. */
+#research,
+.stat-strip.editorial-stats,
+#portfolio{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  clear:both!important;
+}
+
+/* Research highlights */
+#research .mini-research-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+  width:100%!important;
+}
+#research .mini-research-grid>article{
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+#research .mini-research-grid h3,
+#research .mini-research-grid p{overflow-wrap:break-word!important}
+
+/* Stats */
+.stat-strip.editorial-stats{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+.stat-strip.editorial-stats>article{min-width:0!important}
+
+/* Portfolio: never inherit old widths or columns. */
+#portfolio{display:block!important}
+#portfolio .dashboard-projects{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  width:100%!important;
+  max-width:100%!important;
+}
+#portfolio .previous-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px!important;
+  width:100%!important;
+}
+#portfolio .dash-project,
+#portfolio .previous-project-card{
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+#portfolio .project-logo-img,
+#portfolio .project-logo-img img{
+  max-width:100%!important;
+}
+#portfolio h3,#portfolio p,#portfolio span{overflow-wrap:break-word}
+
+/* Generic protection for the rest of the site. */
+.dashboard-card,.dashboard-grid,.publication-layout,.experience-3col,
+.stays-ip-grid,.skill-category-grid,.language-grid,.awards-grid,
+.peer-stats,.courses-summary,.testimonial-carousel{min-width:0!important;max-width:100%!important}
+img,svg,canvas{max-width:100%}
+.courses-table-wrap{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+
+/* Small desktop / laptop */
+@media(max-width:1200px){
+  #research .mini-research-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #portfolio .dashboard-projects{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .experience-3col{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .experience-3col>.experience-column:last-child{grid-column:1/-1!important}
+  .publication-layout,.stays-ip-grid,.revised-mid-grid,.revised-bottom-grid,.final-top-grid{grid-template-columns:1fr!important}
+  .skills-wide .dashboard-languages,.skill-language-row{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .awards-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+
+/* Tablet */
+@media(max-width:900px){
+  .page.dashboard-page{
+    margin-left:0!important;
+    width:100%!important;
+    max-width:100%!important;
+    padding:14px!important;
+  }
+  .page.dashboard-page>*{margin-bottom:14px!important}
+  .dashboard-card{padding:20px!important}
+  .snapshot-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .experience-3col{grid-template-columns:1fr!important}
+  .experience-3col>.experience-column:last-child{grid-column:auto!important}
+  .peer-stats,.courses-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .skills-wide .dashboard-languages,.skill-language-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .awards-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .publication-layout,.stays-ip-grid{grid-template-columns:1fr!important}
+}
+
+/* Narrow tablet / phone */
+@media(max-width:700px){
+  #research .mini-research-grid{grid-template-columns:1fr!important}
+  #portfolio .dashboard-projects,#portfolio .previous-grid{grid-template-columns:1fr!important}
+  .stat-strip.editorial-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .snapshot-grid,.peer-stats,.courses-summary,.skill-category-grid{grid-template-columns:1fr!important}
+  .event-row,.stays-dashboard .event-row,.events-dashboard .event-row,.ip-card,.enhanced-ip-card,.clean-ip-card,.serious-ip{grid-template-columns:1fr!important}
+  .publication-card,.publication-records-dashboard .publication-card{grid-template-columns:1fr!important}
+  .pub-side{grid-template-columns:1fr!important;border-left:0!important;border-top:1px solid var(--line)!important;padding-left:0!important;padding-top:12px!important}
+  .awards-grid{grid-template-columns:1fr!important}
+}
+
+/* Phone */
+@media(max-width:560px){
+  .page.dashboard-page{padding:10px!important}
+  .dashboard-card{padding:15px!important;border-radius:10px!important}
+  .section-title h2{white-space:normal!important;overflow-wrap:break-word!important}
+  .skills-wide .dashboard-languages,.skill-language-row{grid-template-columns:1fr!important}
+  .filters,.dashboard-filters,.courses-table-tools{display:grid!important;grid-template-columns:1fr!important;width:100%!important}
+  .filters input,.filters select,.courses-search-label,.courses-search-label input{width:100%!important;min-width:0!important}
+}
+
+@media(max-width:390px){
+  .stat-strip.editorial-stats{grid-template-columns:1fr!important}
+}

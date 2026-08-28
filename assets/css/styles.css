@@ -1427,3 +1427,8 @@ img,svg,canvas{max-width:100%}
   body #portfolio .dashboard-projects{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))!important}
   body #research .mini-research-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))!important}
 }
+
+/* V2.15 — completed peer review, manuscript not published */
+.peer-status-dot.completed{background:#7b8790;box-shadow:0 0 0 5px rgba(123,135,144,.10)}
+.peer-review-card.completed{border-left:4px solid #7b8790}
+.peer-review-card.completed .peer-year span,.peer-review-card.completed .peer-info small,.peer-review-card.completed .peer-status strong{color:#66737d}

@@ -28,17 +28,19 @@ window.CVLEO_DATA.peerReviews = {
       logo: 'assets/img/journals/oup.svg'
     }
   ],
-  active: [
+  completed: [
     {
       year: '2026',
       publisher: 'Frontiers',
       journal: 'Frontiers in Bioinformatics',
       section: 'Genomic Analysis',
       role: 'Peer Reviewer',
-      status: 'Under Review',
-      note: 'Under peer review process',
+      status: 'Not Published',
+      note: 'Peer review completed; manuscript not published.',
       logo: 'assets/img/journals/frontiers.png'
-    },
+    }
+  ],
+  active: [
     {
       year: '2026',
       publisher: 'Elsevier',

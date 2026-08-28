@@ -5,7 +5,7 @@ const events = DATA.events || [];
 const awards = DATA.awards || [];
 const testimonials = DATA.testimonials || [];
 const projects = DATA.projects || { featured: [], previous: [] };
-const peerReviews = DATA.peerReviews || { published: [], active: [] };
+const peerReviews = DATA.peerReviews || { published: [], completed: [], active: [] };
 const courses = DATA.courses || [];
 const state = { page: 1, perPage: 3, search: '', type: 'all', year: 'all', featured: 'all' };
 const moreState = { professional: false, academic: false, research: false, events: false, awards: false };
@@ -157,23 +157,31 @@ function renderProjects(){const featuredEl=document.getElementById('featured-pro
 
 function peerReviewCard(item,type){
   const isPublished=type==='published';
+  const isCompleted=type==='completed';
   const links=[];
   if(isPublished&&item.articleUrl)links.push(`<a href="${escapeHtml(item.articleUrl)}" target="_blank" rel="noopener">View article ↗</a>`);
   if(isPublished&&item.certificateUrl&&item.certificateUrl!=='#')links.push(`<a href="${escapeHtml(item.certificateUrl)}" target="_blank" rel="noopener">Review recognition ↗</a>`);
-  return `<article class="peer-review-card ${isPublished?'published':'active'}">
-    <div class="peer-year"><strong>${escapeHtml(item.year)}</strong><span>${isPublished?escapeHtml(item.date||'Published'):'In review'}</span></div>
+  const cardClass=isPublished?'published':(isCompleted?'completed':'active');
+  const timeLabel=isPublished?escapeHtml(item.date||'Published'):(isCompleted?'Review completed':'In review');
+  const titleLabel=isPublished?escapeHtml(item.title):'Manuscript title confidential';
+  const noteLabel=!isPublished?`<p>${escapeHtml(item.note||(isCompleted?'Peer review completed; manuscript not published.':'Under peer review process'))}</p>`:'';
+  return `<article class="peer-review-card ${cardClass}">
+    <div class="peer-year"><strong>${escapeHtml(item.year)}</strong><span>${timeLabel}</span></div>
     <div class="peer-logo">${item.logo?`<img src="${escapeHtml(item.logo)}" alt="${escapeHtml(item.publisher)} logo" loading="lazy">`:`<strong>${escapeHtml(item.publisher)}</strong>`}</div>
     <div class="peer-info"><h4>${escapeHtml(item.journal)}</h4>${item.section?`<p>Section: ${escapeHtml(item.section)}</p>`:''}<small>Role: ${escapeHtml(item.role||'Peer Reviewer')}</small></div>
-    <div class="peer-title"><h4>${isPublished?escapeHtml(item.title):'Manuscript title confidential'}</h4>${!isPublished?`<p>${escapeHtml(item.note||'Under peer review process')}</p>`:''}</div>
+    <div class="peer-title"><h4>${titleLabel}</h4>${noteLabel}</div>
     <div class="peer-status"><strong>${escapeHtml(item.status)}</strong>${links.join('')}</div>
   </article>`;
 }
 function renderPeerReviews(){
   const publishedEl=document.getElementById('published-peer-review-list');
+  const completedEl=document.getElementById('completed-peer-review-list');
   const activeEl=document.getElementById('active-peer-review-list');
   if(publishedEl)publishedEl.innerHTML=(peerReviews.published||[]).map(p=>peerReviewCard(p,'published')).join('');
+  if(completedEl)completedEl.innerHTML=(peerReviews.completed||[]).map(p=>peerReviewCard(p,'completed')).join('');
   if(activeEl)activeEl.innerHTML=(peerReviews.active||[]).map(p=>peerReviewCard(p,'active')).join('');
-  const publishers=new Set([...(peerReviews.published||[]).map(p=>p.publisher),...(peerReviews.active||[]).map(p=>p.publisher)].filter(Boolean));
+  const allReviews=[...(peerReviews.published||[]),...(peerReviews.completed||[]),...(peerReviews.active||[])];
+  const publishers=new Set(allReviews.map(p=>p.publisher).filter(Boolean));
   const pc=document.getElementById('peer-published-count');if(pc)pc.textContent=String((peerReviews.published||[]).length);
   const ac=document.getElementById('peer-active-count');if(ac)ac.textContent=String((peerReviews.active||[]).length);
   const pubc=document.getElementById('peer-publisher-count');if(pubc)pubc.textContent=String(publishers.size);

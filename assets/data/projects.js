@@ -42,7 +42,7 @@ window.CVLEO_DATA.projects = {
       title: 'La UNAM y los Objetivos de Desarrollo Sostenible',
       description: 'Data and institutional indicators platform.',
       image: 'assets/img/portfolio/portfolio-2.jpg',
-      url: 'https://web.siia.unam.mx/ods-unam/'
+      url: 'https://www.ods.unam.mx'
     },
     {
       title: 'Sistema Integrado de Información de la Educación Superior',

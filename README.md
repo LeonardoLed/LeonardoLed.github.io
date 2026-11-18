@@ -1,27 +1,26 @@
-# CVLeo GitHub Pages — Dashboard Redesign
+# Leonardo Ledesma-Domínguez, personal site
 
-Static academic portfolio for GitHub Pages.
+Static academic site for GitHub Pages. No build step.
 
 ## Structure
 
-- `index.html` — page structure and section layout.
-- `assets/css/styles.css` — visual design and responsive dashboard styling.
-- `assets/js/app.js` — rendering logic, filters, pagination, chart interaction, timelines and carousel.
-- `assets/data/*.js` — editable data files for publications, experience, projects, events, awards and testimonials.
+- `index.html`: page structure, in the same order as the navigation.
+- `assets/css/styles.css`: all styling. Colors and fonts are variables at the top of the file.
+- `assets/js/app.js`: renders publications, experience, events, awards, projects, peer review, courses and testimonials from the data files.
+- `assets/data/*.js`: the content. Edit these to update the site.
+  - `research-projects.js` is empty for now. The "Research projects" section appears by itself once it has entries.
+  - `competitions.js` holds the competitions and industry engagement list.
+  - `peer-review.js` has three groups: `published`, `active` (in review) and `rejected`.
+- `assets/fonts/`: Young Serif (headings) and Schibsted Grotesk (text), served from the site itself.
 
-## Main redesign notes
+## Design notes
 
-- Dashboard-style academic homepage based on the approved preview.
-- Publications keep search, filters, pagination and interactive chart.
-- Publication cards include role, badges, tags, links and metrics.
-- Metrics are controlled from JSON using `showMetrics:false` / `indexed:false`.
-- The only non-indexed publication is:
-  `Hacia una nueva praxis de ciencia abierta dominada por datos masivos e inteligencia artificial generativa`.
-- Experience keeps the three categories: Professional, Academic and Research.
-- Experience appears before Portfolio.
-- Industrial & Intellectual Property Rights is kept as one record.
-- Awards & Honors redesigned as visual cards.
+- Palette in Tec blue. `--accent` was sampled from the Tecnológico de Monterrey logo in `assets/img/companies/tec.jpeg`.
+  Change `--ink`, `--accent` and `--paper` in `styles.css` to re-tint the whole site.
+- The side menu can be collapsed with the button at its bottom (desktop). The choice is remembered in the browser.
+- The publications chart is a gel: each lane is a year, each band is a publication, and its height shows the type.
+- Sections are separated by rules and a date column instead of cards.
 
 ## Deploy
 
-Upload the full contents of this folder to the GitHub Pages branch/repository.
+Upload the full contents of this folder to the GitHub Pages repository.
